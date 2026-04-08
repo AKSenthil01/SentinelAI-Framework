@@ -39,10 +39,11 @@ class BasePage:
         return locator.is_displayed()
 
     def inputText(self,value,locator):
-        #self.wait.until(EC.element_to_be_clickable(locator)).click().send_keys(value)
-        element = self.driver.find_element(*locator)
-        element.clear()
-        element.send_keys(value)
+        self.wait.until(EC.visibility_of_element_located(locator)).send_keys(value)
+        #Previously working
+        # element = self.driver.find_element(*locator)
+        # element.clear()
+        # element.send_keys(value)
 
     def validateMsg(self,locator):
         try:
