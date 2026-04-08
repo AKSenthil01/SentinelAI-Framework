@@ -5,7 +5,7 @@ from pageObjects.BasePage import BasePage
 
 class ShopingCartPage(BasePage):
 
-    btn_proceedToCheckout_xpath = (By.XPATH,"//a[text()='Proceed To Checkoutt']")
+    btn_proceedToCheckout_xpath = (By.XPATH,"//a[text()='Proceed To Checkout']")
 
     def __init__(self, driver):
         super().__init__(driver)
