@@ -12246,3 +12246,60 @@
 2026-04-08 16:37:16,157 - testCases.test_005_Orderconfirm - INFO - *****Validate Shoping Cart Page Title******
 2026-04-08 16:37:26,215 - testCases.test_005_Orderconfirm - INFO - *****Proceed to Checkout******
 2026-04-08 16:37:36,226 - testCases.test_005_Orderconfirm - INFO - *****Place Order******
+2026-04-08 23:24:55,468 - testCases.test_005_Orderconfirm - INFO - *****test_001_AccountRegistration started*****
+2026-04-08 23:24:57,937 - testCases.test_005_Orderconfirm - INFO - *****Launching Application*****
+2026-04-08 23:24:57,951 - testCases.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
+2026-04-08 23:24:58,494 - testCases.test_005_Orderconfirm - INFO - *****Clicking on Login link*****
+2026-04-08 23:24:58,498 - testCases.test_005_Orderconfirm - INFO - *****Validating Account Registration Page Title*****
+2026-04-08 23:24:58,498 - testCases.test_005_Orderconfirm - INFO - *****Entering user name and password on Registration page*****
+2026-04-08 23:24:59,282 - testCases.test_005_Orderconfirm - INFO - *****Clicking on Signup link*****
+2026-04-08 23:24:59,326 - testCases.test_005_Orderconfirm - INFO - *****Validating SignUp Page Title*****
+2026-04-08 23:24:59,367 - testCases.test_005_Orderconfirm - INFO - *****Validating the message*****
+2026-04-08 23:24:59,367 - testCases.test_005_Orderconfirm - INFO - *******Message validation successful...*****
+2026-04-08 23:24:59,478 - testCases.test_005_Orderconfirm - INFO - *****Clicking on Mr. radiobutton*****
+2026-04-08 23:24:59,571 - testCases.test_005_Orderconfirm - INFO - *****Setting Password*******
+2026-04-08 23:24:59,696 - testCases.test_005_Orderconfirm - INFO - *****Selecting Day*******
+2026-04-08 23:24:59,793 - testCases.test_005_Orderconfirm - INFO - *****Selecting Month*******
+2026-04-08 23:24:59,988 - testCases.test_005_Orderconfirm - INFO - *****Selecting Year*******
+2026-04-08 23:25:00,097 - testCases.test_005_Orderconfirm - INFO - *****Clicking on News Letter*****
+2026-04-08 23:25:00,354 - testCases.test_005_Orderconfirm - INFO - *****Clicking on Offers*****
+2026-04-08 23:25:00,584 - testCases.test_005_Orderconfirm - INFO - *****Setting First Name******
+2026-04-08 23:25:00,688 - testCases.test_005_Orderconfirm - INFO - *****Setting Last Name******
+2026-04-08 23:25:00,800 - testCases.test_005_Orderconfirm - INFO - *****Setting Company Name******
+2026-04-08 23:25:00,958 - testCases.test_005_Orderconfirm - INFO - *****Setting Address1******
+2026-04-08 23:25:01,161 - testCases.test_005_Orderconfirm - INFO - *****Setting Address2******
+2026-04-08 23:25:01,289 - testCases.test_005_Orderconfirm - INFO - *****Selecting Country******
+2026-04-08 23:25:01,433 - testCases.test_005_Orderconfirm - INFO - *****Setting State Name******
+2026-04-08 23:25:01,559 - testCases.test_005_Orderconfirm - INFO - *****Setting City Name******
+2026-04-08 23:25:01,672 - testCases.test_005_Orderconfirm - INFO - *****Setting Zip Code******
+2026-04-08 23:25:01,788 - testCases.test_005_Orderconfirm - INFO - *****Setting Mobile Number******
+2026-04-08 23:25:03,142 - testCases.test_005_Orderconfirm - INFO - *****Clicking on Create Account*******
+2026-04-08 23:25:03,999 - testCases.test_005_Orderconfirm - INFO - *****Validating the Account Created Page Title*******
+2026-04-08 23:25:04,025 - testCases.test_005_Orderconfirm - INFO - *****Validating the Account Created Header*******
+2026-04-08 23:25:04,049 - testCases.test_005_Orderconfirm - INFO - *****Validating the Account Created Success Message1*******
+2026-04-08 23:25:04,074 - testCases.test_005_Orderconfirm - INFO - *****Validating the Account Created Success Message2*******
+2026-04-08 23:25:04,581 - testCases.test_005_Orderconfirm - INFO - *****Click on Continue Button*******
+2026-04-08 23:25:04,620 - testCases.test_005_Orderconfirm - INFO - *****Home Page Logged In Info******
+2026-04-08 23:25:04,647 - testCases.test_005_Orderconfirm - INFO - *****Home Page Logout Link******
+2026-04-08 23:25:04,678 - testCases.test_005_Orderconfirm - INFO - *****Home Page Delete Account Link******
+2026-04-08 23:25:04,710 - testCases.test_005_Orderconfirm - INFO - *****Home Page Features Items Section******
+2026-04-08 23:25:04,736 - testCases.test_005_Orderconfirm - INFO - *****Home Page Brands Section ******
+2026-04-08 23:25:04,761 - testCases.test_005_Orderconfirm - INFO - *****Home Page Category Item Section ******
+2026-04-08 23:25:04,786 - testCases.test_005_Orderconfirm - INFO - *****Home Page Recommended Items Section ******
+2026-04-08 23:25:04,820 - testCases.test_005_Orderconfirm - INFO - *****Home Page Products Link Validation******
+2026-04-08 23:25:05,835 - testCases.test_005_Orderconfirm - INFO - *****Home Page Click on Products Link ******
+2026-04-08 23:25:05,885 - testCases.test_005_Orderconfirm - INFO - *****Validate All Products Page Title ******
+2026-04-08 23:25:05,912 - testCases.test_005_Orderconfirm - INFO - *****Validate All Products section ******
+2026-04-08 23:25:06,835 - testCases.test_005_Orderconfirm - INFO - *****Search a Product******
+2026-04-08 23:25:06,900 - testCases.test_005_Orderconfirm - INFO - *****Validate Searched Product section ******
+2026-04-08 23:25:15,128 - testCases.test_005_Orderconfirm - INFO - *****Add Products whose price is > Rs.500 to the cart ******
+2026-04-08 23:25:15,795 - testCases.test_005_Orderconfirm - INFO - *****Click on View Cart Link******
+2026-04-08 23:25:15,838 - testCases.test_005_Orderconfirm - INFO - *****Validate Shoping Cart Page Title******
+2026-04-08 23:25:25,860 - testCases.test_005_Orderconfirm - INFO - *****Proceed to Checkout******
+2026-04-08 23:25:37,109 - testCases.test_005_Orderconfirm - INFO - *****Place Order******
+2026-04-08 23:25:43,786 - testCases.test_005_Orderconfirm - INFO - *****Download Invoice******
+2026-04-08 23:25:43,787 - testCases.test_005_Orderconfirm - INFO - *****Verify Invoice******
+2026-04-08 23:25:44,531 - testCases.test_005_Orderconfirm - INFO - *****Click on Continue Button******
+2026-04-08 23:25:44,539 - testCases.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
+2026-04-08 23:25:46,157 - testCases.test_005_Orderconfirm - INFO - *****Click on Logout Link******
+2026-04-08 23:25:46,157 - testCases.test_005_Orderconfirm - INFO - *****Validate Account Registration Page Title******
