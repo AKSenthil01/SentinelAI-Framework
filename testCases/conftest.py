@@ -14,32 +14,81 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
 
 
+import os
+import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture
 def setup():
-    #driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    # Define a custom download directory
+    # Define download directory
     download_dir = os.path.join(os.getcwd(), "downloads")
     if not os.path.exists(download_dir):
         os.makedirs(download_dir)
 
     chrome_options = webdriver.ChromeOptions()
+
+    # ✅ Chrome preferences
     prefs = {
-        "profile.default_content_settings.popups": 0,  # Disable all popups
-        "download.default_directory": download_dir,  # Set path
-        "download.prompt_for_download": False,  # Disable popup
-        "down.directory_upgrade": True,
-        "safebrowsing.enabled": True  # Skip security warnings
+        "profile.default_content_settings.popups": 0,
+        "download.default_directory": download_dir,
+        "download.prompt_for_download": False,
+        "download.directory_upgrade": True,
+        "safebrowsing.enabled": True
     }
+
     chrome_options.add_experimental_option("prefs", prefs)
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-popup-blocking")
     chrome_options.page_load_strategy = 'eager'
 
-    driver = webdriver.Chrome(options=chrome_options)
+    # ✅ CONDITIONAL HEADLESS (KEY PART)
+    if os.getenv("CI") == "true":
+        chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+
+    # ✅ Use WebDriver Manager (recommended)
+    driver = webdriver.Chrome(
+        service=ChromeService(ChromeDriverManager().install()),
+        options=chrome_options
+    )
+
+    driver.maximize_window()
+
     yield driver
+
     driver.quit()
-    return driver
+
+#***************Was Already working start**********************************************
+# @pytest.fixture
+# def setup():
+#     #driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+#     # Define a custom download directory
+#     download_dir = os.path.join(os.getcwd(), "downloads")
+#     if not os.path.exists(download_dir):
+#         os.makedirs(download_dir)
+#
+#     chrome_options = webdriver.ChromeOptions()
+#     prefs = {
+#         "profile.default_content_settings.popups": 0,  # Disable all popups
+#         "download.default_directory": download_dir,  # Set path
+#         "download.prompt_for_download": False,  # Disable popup
+#         "down.directory_upgrade": True,
+#         "safebrowsing.enabled": True  # Skip security warnings
+#     }
+#     chrome_options.add_experimental_option("prefs", prefs)
+#     chrome_options.add_argument("--disable-notifications")
+#     chrome_options.add_argument("--disable-popup-blocking")
+#     chrome_options.page_load_strategy = 'eager'
+#
+#     driver = webdriver.Chrome(options=chrome_options)
+#     yield driver
+#     driver.quit()
+#     return driver
+#***************Was Already working end**********************************************
+
 # def setup():
 #     # 1. Keep your existing download directory logic
 #     download_dir = os.path.join(os.getcwd(), "downloads")
