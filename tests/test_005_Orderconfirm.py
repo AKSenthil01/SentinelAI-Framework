@@ -10,6 +10,7 @@ from pages.HomePage import HomePage
 from pages.OrderPlacedPage import OrderPlacedPage
 from pages.PaymentPage import PaymentPage
 from pages.ShopingCartPage import ShopingCartPage
+from pages.ShopingPage import ShopingPage
 from pages.SignUpPage import SignUp
 from utils.customLogger import get_custom_logger
 from core.config import get_base_url
