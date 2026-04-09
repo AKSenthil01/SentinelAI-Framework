@@ -131,8 +131,7 @@ class AllProductsPage(BasePage):
 
                  # Wait for modal and close it
                  self.clickElement(self.CONTINUE_SHOPPING)
-                 print(f"Added product with pr"
-                       f"ice: {numeric_price}")
+                 print(f"Added product with price: {numeric_price}")
         # #self.clickElement(self.lnk_viewCart_xpath)
 
     def clickOnCart(self):

@@ -1,0 +1,114 @@
+2026-04-09 17:54:45,227 - tests.test_005_Orderconfirm - INFO - *****test_001_AccountRegistration started*****
+2026-04-09 17:54:46,891 - tests.test_005_Orderconfirm - INFO - *****Launching Application*****
+2026-04-09 17:54:46,981 - tests.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
+2026-04-09 17:54:47,967 - tests.test_005_Orderconfirm - INFO - *****Clicking on Login link*****
+2026-04-09 17:54:47,975 - tests.test_005_Orderconfirm - INFO - *****Validating Account Registration Page Title*****
+2026-04-09 17:54:47,975 - tests.test_005_Orderconfirm - INFO - *****Entering user name and password on Registration page*****
+2026-04-09 17:54:49,771 - tests.test_005_Orderconfirm - INFO - *****Clicking on Signup link*****
+2026-04-09 17:54:49,779 - tests.test_005_Orderconfirm - INFO - *****Validating SignUp Page Title*****
+2026-04-09 17:54:49,809 - tests.test_005_Orderconfirm - INFO - *****Validating the message*****
+2026-04-09 17:54:49,810 - tests.test_005_Orderconfirm - INFO - *******Message validation successful...*****
+2026-04-09 17:54:49,908 - tests.test_005_Orderconfirm - INFO - *****Clicking on Mr. radiobutton*****
+2026-04-09 17:54:50,005 - tests.test_005_Orderconfirm - INFO - *****Setting Password*******
+2026-04-09 17:54:50,143 - tests.test_005_Orderconfirm - INFO - *****Selecting Day*******
+2026-04-09 17:54:50,344 - tests.test_005_Orderconfirm - INFO - *****Selecting Month*******
+2026-04-09 17:54:50,442 - tests.test_005_Orderconfirm - INFO - *****Selecting Year*******
+2026-04-09 17:54:50,612 - tests.test_005_Orderconfirm - INFO - *****Clicking on News Letter*****
+2026-04-09 17:54:50,863 - tests.test_005_Orderconfirm - INFO - *****Clicking on Offers*****
+2026-04-09 17:54:50,977 - tests.test_005_Orderconfirm - INFO - *****Setting First Name******
+2026-04-09 17:54:51,095 - tests.test_005_Orderconfirm - INFO - *****Setting Last Name******
+2026-04-09 17:54:51,202 - tests.test_005_Orderconfirm - INFO - *****Setting Company Name******
+2026-04-09 17:54:51,370 - tests.test_005_Orderconfirm - INFO - *****Setting Address1******
+2026-04-09 17:54:51,521 - tests.test_005_Orderconfirm - INFO - *****Setting Address2******
+2026-04-09 17:54:51,602 - tests.test_005_Orderconfirm - INFO - *****Selecting Country******
+2026-04-09 17:54:51,727 - tests.test_005_Orderconfirm - INFO - *****Setting State Name******
+2026-04-09 17:54:51,856 - tests.test_005_Orderconfirm - INFO - *****Setting City Name******
+2026-04-09 17:54:51,952 - tests.test_005_Orderconfirm - INFO - *****Setting Zip Code******
+2026-04-09 17:54:52,066 - tests.test_005_Orderconfirm - INFO - *****Setting Mobile Number******
+2026-04-09 17:54:55,585 - tests.test_005_Orderconfirm - INFO - *****Clicking on Create Account*******
+2026-04-09 17:54:55,916 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Page Title*******
+2026-04-09 17:54:55,943 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Header*******
+2026-04-09 17:54:55,966 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Success Message1*******
+2026-04-09 17:54:55,989 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Success Message2*******
+2026-04-09 17:54:56,874 - tests.test_005_Orderconfirm - INFO - *****Click on Continue Button*******
+2026-04-09 17:54:56,900 - tests.test_005_Orderconfirm - INFO - *****Home Page Logged In Info******
+2026-04-09 17:54:56,924 - tests.test_005_Orderconfirm - INFO - *****Home Page Logout Link******
+2026-04-09 17:54:56,949 - tests.test_005_Orderconfirm - INFO - *****Home Page Delete Account Link******
+2026-04-09 17:54:56,975 - tests.test_005_Orderconfirm - INFO - *****Home Page Features Items Section******
+2026-04-09 17:54:56,999 - tests.test_005_Orderconfirm - INFO - *****Home Page Brands Section ******
+2026-04-09 17:54:57,023 - tests.test_005_Orderconfirm - INFO - *****Home Page Category Item Section ******
+2026-04-09 17:54:57,048 - tests.test_005_Orderconfirm - INFO - *****Home Page Recommended Items Section ******
+2026-04-09 17:54:57,071 - tests.test_005_Orderconfirm - INFO - *****Home Page Products Link Validation******
+2026-04-09 17:54:58,577 - tests.test_005_Orderconfirm - INFO - *****Home Page Click on Products Link ******
+2026-04-09 17:54:58,618 - tests.test_005_Orderconfirm - INFO - *****Validate All Products Page Title ******
+2026-04-09 17:54:58,639 - tests.test_005_Orderconfirm - INFO - *****Validate All Products section ******
+2026-04-09 17:55:00,091 - tests.test_005_Orderconfirm - INFO - *****Search a Product******
+2026-04-09 17:55:00,146 - tests.test_005_Orderconfirm - INFO - *****Validate Searched Product section ******
+2026-04-09 17:55:08,174 - tests.test_005_Orderconfirm - INFO - *****Add Products whose price is > Rs.500 to the cart ******
+2026-04-09 17:55:09,216 - tests.test_005_Orderconfirm - INFO - *****Click on View Cart Link******
+2026-04-09 17:55:09,247 - tests.test_005_Orderconfirm - INFO - *****Validate Shoping Cart Page Title******
+2026-04-09 17:55:11,042 - tests.test_005_Orderconfirm - INFO - *****Proceed to Checkout******
+2026-04-09 17:55:11,754 - tests.test_005_Orderconfirm - INFO - *****Place Order******
+2026-04-09 17:55:20,143 - tests.test_005_Orderconfirm - INFO - *****Download Invoice******
+2026-04-09 17:55:20,144 - tests.test_005_Orderconfirm - INFO - *****Verify Invoice******
+2026-04-09 17:55:21,542 - tests.test_005_Orderconfirm - INFO - *****Click on Continue Button******
+2026-04-09 17:55:21,547 - tests.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
+2026-04-09 17:55:23,677 - tests.test_005_Orderconfirm - INFO - *****Click on Logout Link******
+2026-04-09 17:55:23,719 - tests.test_005_Orderconfirm - INFO - *****Validate Account Registration Page Title******
+2026-04-09 17:57:31,053 - tests.test_005_Orderconfirm - INFO - *****test_001_AccountRegistration started*****
+2026-04-09 17:57:32,967 - tests.test_005_Orderconfirm - INFO - *****Launching Application*****
+2026-04-09 17:57:33,067 - tests.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
+2026-04-09 17:57:34,179 - tests.test_005_Orderconfirm - INFO - *****Clicking on Login link*****
+2026-04-09 17:57:34,265 - tests.test_005_Orderconfirm - INFO - *****Validating Account Registration Page Title*****
+2026-04-09 17:57:34,266 - tests.test_005_Orderconfirm - INFO - *****Entering user name and password on Registration page*****
+2026-04-09 17:57:35,315 - tests.test_005_Orderconfirm - INFO - *****Clicking on Signup link*****
+2026-04-09 17:57:35,366 - tests.test_005_Orderconfirm - INFO - *****Validating SignUp Page Title*****
+2026-04-09 17:57:35,403 - tests.test_005_Orderconfirm - INFO - *****Validating the message*****
+2026-04-09 17:57:35,404 - tests.test_005_Orderconfirm - INFO - *******Message validation successful...*****
+2026-04-09 17:57:35,504 - tests.test_005_Orderconfirm - INFO - *****Clicking on Mr. radiobutton*****
+2026-04-09 17:57:35,589 - tests.test_005_Orderconfirm - INFO - *****Setting Password*******
+2026-04-09 17:57:35,695 - tests.test_005_Orderconfirm - INFO - *****Selecting Day*******
+2026-04-09 17:57:35,783 - tests.test_005_Orderconfirm - INFO - *****Selecting Month*******
+2026-04-09 17:57:35,983 - tests.test_005_Orderconfirm - INFO - *****Selecting Year*******
+2026-04-09 17:57:36,102 - tests.test_005_Orderconfirm - INFO - *****Clicking on News Letter*****
+2026-04-09 17:57:36,260 - tests.test_005_Orderconfirm - INFO - *****Clicking on Offers*****
+2026-04-09 17:57:36,358 - tests.test_005_Orderconfirm - INFO - *****Setting First Name******
+2026-04-09 17:57:36,542 - tests.test_005_Orderconfirm - INFO - *****Setting Last Name******
+2026-04-09 17:57:36,674 - tests.test_005_Orderconfirm - INFO - *****Setting Company Name******
+2026-04-09 17:57:36,952 - tests.test_005_Orderconfirm - INFO - *****Setting Address1******
+2026-04-09 17:57:37,121 - tests.test_005_Orderconfirm - INFO - *****Setting Address2******
+2026-04-09 17:57:37,199 - tests.test_005_Orderconfirm - INFO - *****Selecting Country******
+2026-04-09 17:57:37,371 - tests.test_005_Orderconfirm - INFO - *****Setting State Name******
+2026-04-09 17:57:37,488 - tests.test_005_Orderconfirm - INFO - *****Setting City Name******
+2026-04-09 17:57:37,605 - tests.test_005_Orderconfirm - INFO - *****Setting Zip Code******
+2026-04-09 17:57:37,723 - tests.test_005_Orderconfirm - INFO - *****Setting Mobile Number******
+2026-04-09 17:57:39,596 - tests.test_005_Orderconfirm - INFO - *****Clicking on Create Account*******
+2026-04-09 17:57:40,382 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Page Title*******
+2026-04-09 17:57:40,410 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Header*******
+2026-04-09 17:57:40,454 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Success Message1*******
+2026-04-09 17:57:40,477 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Success Message2*******
+2026-04-09 17:57:41,192 - tests.test_005_Orderconfirm - INFO - *****Click on Continue Button*******
+2026-04-09 17:57:41,217 - tests.test_005_Orderconfirm - INFO - *****Home Page Logged In Info******
+2026-04-09 17:57:41,243 - tests.test_005_Orderconfirm - INFO - *****Home Page Logout Link******
+2026-04-09 17:57:41,270 - tests.test_005_Orderconfirm - INFO - *****Home Page Delete Account Link******
+2026-04-09 17:57:41,298 - tests.test_005_Orderconfirm - INFO - *****Home Page Features Items Section******
+2026-04-09 17:57:41,323 - tests.test_005_Orderconfirm - INFO - *****Home Page Brands Section ******
+2026-04-09 17:57:41,351 - tests.test_005_Orderconfirm - INFO - *****Home Page Category Item Section ******
+2026-04-09 17:57:41,377 - tests.test_005_Orderconfirm - INFO - *****Home Page Recommended Items Section ******
+2026-04-09 17:57:41,402 - tests.test_005_Orderconfirm - INFO - *****Home Page Products Link Validation******
+2026-04-09 17:57:42,826 - tests.test_005_Orderconfirm - INFO - *****Home Page Click on Products Link ******
+2026-04-09 17:57:42,870 - tests.test_005_Orderconfirm - INFO - *****Validate All Products Page Title ******
+2026-04-09 17:57:42,893 - tests.test_005_Orderconfirm - INFO - *****Validate All Products section ******
+2026-04-09 17:57:44,408 - tests.test_005_Orderconfirm - INFO - *****Search a Product******
+2026-04-09 17:57:44,500 - tests.test_005_Orderconfirm - INFO - *****Validate Searched Product section ******
+2026-04-09 17:57:52,696 - tests.test_005_Orderconfirm - INFO - *****Add Products whose price is > Rs.500 to the cart ******
+2026-04-09 17:57:53,435 - tests.test_005_Orderconfirm - INFO - *****Click on View Cart Link******
+2026-04-09 17:57:53,473 - tests.test_005_Orderconfirm - INFO - *****Validate Shoping Cart Page Title******
+2026-04-09 17:57:54,392 - tests.test_005_Orderconfirm - INFO - *****Proceed to Checkout******
+2026-04-09 17:57:55,339 - tests.test_005_Orderconfirm - INFO - *****Place Order******
+2026-04-09 17:58:03,760 - tests.test_005_Orderconfirm - INFO - *****Download Invoice******
+2026-04-09 17:58:03,761 - tests.test_005_Orderconfirm - INFO - *****Verify Invoice******
+2026-04-09 17:58:04,791 - tests.test_005_Orderconfirm - INFO - *****Click on Continue Button******
+2026-04-09 17:58:04,797 - tests.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
+2026-04-09 17:58:07,121 - tests.test_005_Orderconfirm - INFO - *****Click on Logout Link******
+2026-04-09 17:58:07,164 - tests.test_005_Orderconfirm - INFO - *****Validate Account Registration Page Title******

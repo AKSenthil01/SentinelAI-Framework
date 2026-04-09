@@ -3,12 +3,12 @@
     "country": "India",
     "state": "TamilNadu",
     "city": "Chennai",
-    "zip_code": 600001,
-    "mobile": 8888088880,
+    "zip_code": "600001",
+    "mobile": "8888088880",
     "cost": 500,
-    "days": 1,
-    "months": 9,
-    "years": 1990
+    "days": "1",
+    "months": "9",
+    "years": "1990"
   }
 }
 
