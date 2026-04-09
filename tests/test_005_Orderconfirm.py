@@ -1,7 +1,7 @@
 import logging
 
 from pages.AccountCreatedPage import AccountCreatedPage
-
+#from venv import logger
 
 from pages.AccountRegistrationPage import AccountRegistrationPage
 from pages.AllProductsPage import AllProductsPage
