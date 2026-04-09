@@ -190,10 +190,11 @@ def pytest_runtest_makereport(item, call):
                 extra.append(pytest_html.extras.html(html))
         report.extra = extra
 
-# def pytest_addoption(parser):
-#     # This tells pytest how to read the custom line from pytest.ini
-#     parser.addini("base_url", help="Base URL for the application")
-#
+
+def pytest_addoption(parser):
+    # This tells pytest how to read the custom line from pytest.ini
+    parser.addini("base_url", help="Base URL for the application")
+
 # @pytest.fixture
 # def base_url(pytestconfig):
 #     # This retrieves the value and makes it available as a fixture
