@@ -14,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, 10)
+        self.wait = WebDriverWait(self.driver, 20)
 
     def scroll_to_and_click(self, locator):
         element = self.wait.until(EC.presence_of_element_located(locator))
