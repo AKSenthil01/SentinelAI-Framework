@@ -1,5 +1,5 @@
 import logging
-import time
+#import time
 
 from pages.AccountCreatedPage import AccountCreatedPage
 
