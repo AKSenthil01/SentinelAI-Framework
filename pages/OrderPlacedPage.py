@@ -33,7 +33,7 @@ class OrderPlacedPage(BasePage):
 
     def validatePageTitle(self):
         actual_title = self.driver.title
-        assert actual_title == Titles.ORDER, f"Expected Home Page Title is: {Titles.ORDER} and the Actual Home Page Title is: {actual_title}"
+        assert actual_title == Titles.ORDER, f"Expected Orders Page Title is: {Titles.ORDER} and the Actual Orders Page Title is: {actual_title}"
 
 
     def validateOrderConfirmMsg(self):

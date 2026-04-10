@@ -22,7 +22,7 @@ class ShopingCartPage(BasePage):
 
     def validatePageTitle(self):
         actual_title = self.driver.title
-        assert actual_title == Titles.CART, f"Expected Home Page Title is: {Titles.CART} and the Actual Home Page Title is: {actual_title}"
+        assert actual_title == Titles.CART, f"Expected Cart Page Title is: {Titles.CART} and the Actual Cart Page Title is: {actual_title}"
 
     def clickProceedToCheckout(self):
         try:

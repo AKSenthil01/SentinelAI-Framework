@@ -45,7 +45,7 @@ class SignUp(BasePage):
     #         print(f"Page not found : {e}")
     def validatePageTitle(self):
         actual_title = self.driver.title
-        assert actual_title == Titles.SIGNUP, f"Expected Home Page Title is: {Titles.SIGNUP} and the Actual Home Page Title is: {actual_title}"
+        assert actual_title == Titles.SIGNUP, f"Expected Signup Page Title is: {Titles.SIGNUP} and the Actual Signup Page Title is: {actual_title}"
 
     def validateInfo(self):
         try:

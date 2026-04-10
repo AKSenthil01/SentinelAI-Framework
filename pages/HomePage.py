@@ -19,15 +19,15 @@ class HomePage(BasePage):
         super().__init__(driver)
         self.driver = driver
 
-    # def validatePageTitle(self):
-    #     try:
-    #         #self.waitForElement((By.XPATH,self.txt_Account_xpath))
-    #         expected_title = "Automation Exercise"
-    #         actual_title = self.page_title()  # Retrieve using driver.title
-    #         assert actual_title == expected_title, "Title does not match"
-    #     except Exception as e:
-    #         print(f"Page not found : {e}")
     def validatePageTitle(self):
+        try:
+            #self.waitForElement((By.XPATH,self.txt_Account_xpath))
+            expected_title = "Automation Exercise"
+            actual_title = self.page_title()  # Retrieve using driver.title
+            assert actual_title == expected_title, "Title does not match"
+        except Exception as e:
+            print(f"Page not found : {e}")
+    def validatePageTitle1(self):
         actual_title = self.driver.title
         assert actual_title == Titles.HOME, f"Expected Home Page Title is: {Titles.HOME} and the Actual Home Page Title is: {actual_title}"
 

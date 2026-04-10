@@ -2627,3 +2627,221 @@
 2026-04-10 16:12:20,148 - tests.test_005_Orderconfirm - INFO - *****Launching Application*****
 2026-04-10 16:12:20,177 - tests.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
 2026-04-10 16:12:20,972 - tests.test_005_Orderconfirm - INFO - *****Clicking on Login link*****
+2026-04-10 16:16:10,827 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:16:12,306 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:16:12,320 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 16:16:12,924 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 16:19:25,406 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:19:27,309 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:19:27,342 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 16:19:27,922 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 16:22:16,256 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:22:17,857 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:22:17,951 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 16:22:18,467 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 16:25:04,939 - tests.test_005_Orderconfirm - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:25:07,019 - tests.test_005_Orderconfirm - INFO - *****Launching Application*****
+2026-04-10 16:25:07,130 - tests.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
+2026-04-10 16:25:07,707 - tests.test_005_Orderconfirm - INFO - *****Clicking on Login link*****
+2026-04-10 16:26:31,762 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:26:33,386 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:26:33,404 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 16:26:33,954 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 16:47:20,669 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:47:22,722 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:47:22,763 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 16:47:23,333 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 16:49:29,941 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:49:31,293 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:49:32,421 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 16:50:08,670 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:50:11,350 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:50:12,273 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 16:50:53,535 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:50:56,574 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:50:57,869 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 16:51:57,415 - tests.test_005_Orderconfirm - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:52:16,363 - tests.test_005_Orderconfirm - INFO - *****Launching Application*****
+2026-04-10 16:52:16,379 - tests.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
+2026-04-10 16:52:17,319 - tests.test_005_Orderconfirm - INFO - *****Clicking on Login link*****
+2026-04-10 16:57:31,952 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:57:34,561 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:57:34,600 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 16:57:35,289 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 16:57:44,018 - tests.test_002_Login - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:57:46,230 - tests.test_002_Login - INFO - *****Launching Application*****
+2026-04-10 16:57:46,375 - tests.test_002_Login - INFO - *****Validating Home Page Title*****
+2026-04-10 16:57:46,991 - tests.test_002_Login - INFO - *****Clicking on Login link*****
+2026-04-10 16:57:47,925 - tests.test_002_Login - INFO - *****Clicking on Login Button*****
+2026-04-10 16:57:56,555 - tests.test_002_Login - INFO - *****Click on Home Page Logout Link******
+2026-04-10 16:58:19,874 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:58:21,685 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:58:21,705 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 16:58:22,431 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 16:59:12,908 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 16:59:15,536 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 16:59:15,544 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 16:59:16,362 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 17:01:30,482 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 17:01:49,354 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 17:01:49,371 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 17:01:51,316 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 17:02:12,983 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 17:02:33,968 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 17:02:33,985 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 17:02:35,424 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 17:03:50,363 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 17:03:54,040 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 17:03:54,047 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 17:03:54,534 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 17:06:26,166 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 17:06:27,802 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 17:06:27,808 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 17:06:28,694 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 17:11:47,911 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 17:11:50,312 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 17:11:50,318 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 17:11:51,104 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 17:11:51,135 - tests.test_001_Registration - INFO - *****Validating Account Registration Page Title*****
+2026-04-10 17:11:51,135 - tests.test_001_Registration - INFO - *****Entering user name and password on Registration page*****
+2026-04-10 17:11:51,765 - tests.test_001_Registration - INFO - *****Clicking on Signup link*****
+2026-04-10 17:11:51,794 - tests.test_001_Registration - INFO - *****Validating SignUp Page Title*****
+2026-04-10 17:11:51,817 - tests.test_001_Registration - INFO - *****Validating the message*****
+2026-04-10 17:11:51,818 - tests.test_001_Registration - INFO - *******Message validation successful...*****
+2026-04-10 17:11:51,873 - tests.test_001_Registration - INFO - *****Clicking on Mr. radiobutton*****
+2026-04-10 17:11:51,918 - tests.test_001_Registration - INFO - *****Setting Password*******
+2026-04-10 17:11:51,991 - tests.test_001_Registration - INFO - *****Selecting Day*******
+2026-04-10 17:11:52,052 - tests.test_001_Registration - INFO - *****Selecting Month*******
+2026-04-10 17:11:52,127 - tests.test_001_Registration - INFO - *****Selecting Year*******
+2026-04-10 17:11:52,190 - tests.test_001_Registration - INFO - *****Clicking on News Letter*****
+2026-04-10 17:11:52,253 - tests.test_001_Registration - INFO - *****Clicking on Offers*****
+2026-04-10 17:11:52,311 - tests.test_001_Registration - INFO - *****Setting First Name******
+2026-04-10 17:11:52,374 - tests.test_001_Registration - INFO - *****Setting Last Name******
+2026-04-10 17:11:52,436 - tests.test_001_Registration - INFO - *****Setting Company Name******
+2026-04-10 17:11:52,515 - tests.test_001_Registration - INFO - *****Setting Address1******
+2026-04-10 17:11:52,601 - tests.test_001_Registration - INFO - *****Setting Address2******
+2026-04-10 17:11:52,639 - tests.test_001_Registration - INFO - *****Selecting Country******
+2026-04-10 17:11:52,835 - tests.test_001_Registration - INFO - *****Setting State Name******
+2026-04-10 17:11:52,987 - tests.test_001_Registration - INFO - *****Setting City Name******
+2026-04-10 17:11:53,058 - tests.test_001_Registration - INFO - *****Setting Zip Code******
+2026-04-10 17:11:53,119 - tests.test_001_Registration - INFO - *****Setting Mobile Number******
+2026-04-10 17:11:54,094 - tests.test_001_Registration - INFO - *****Clicking on Create Account*******
+2026-04-10 17:11:54,111 - tests.test_001_Registration - INFO - *****Validating the Account Created Page Title*******
+2026-04-10 17:11:54,124 - tests.test_001_Registration - INFO - *****Validating the Account Created Header*******
+2026-04-10 17:11:54,136 - tests.test_001_Registration - INFO - *****Validating the Account Created Success Message1*******
+2026-04-10 17:11:54,149 - tests.test_001_Registration - INFO - *****Validating the Account Created Success Message2*******
+2026-04-10 17:11:54,598 - tests.test_001_Registration - INFO - *****Click on Continue Button*******
+2026-04-10 17:11:54,598 - tests.test_001_Registration - INFO - *****Validating Logged In details*******
+2026-04-10 17:11:54,617 - tests.test_001_Registration - INFO - *****Home Page Logged In User Info Validation******
+2026-04-10 17:11:55,328 - tests.test_001_Registration - INFO - *****Click on Home Page Logout Link******
+2026-04-10 17:12:10,826 - tests.test_001_Registration - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 17:12:12,968 - tests.test_001_Registration - INFO - *****Launching Application*****
+2026-04-10 17:12:12,974 - tests.test_001_Registration - INFO - *****Validating Home Page Title*****
+2026-04-10 17:12:13,433 - tests.test_001_Registration - INFO - *****Clicking on Login link*****
+2026-04-10 17:12:13,445 - tests.test_001_Registration - INFO - *****Validating Account Registration Page Title*****
+2026-04-10 17:12:13,445 - tests.test_001_Registration - INFO - *****Entering user name and password on Registration page*****
+2026-04-10 17:12:14,054 - tests.test_001_Registration - INFO - *****Clicking on Signup link*****
+2026-04-10 17:12:14,087 - tests.test_001_Registration - INFO - *****Validating SignUp Page Title*****
+2026-04-10 17:12:14,108 - tests.test_001_Registration - INFO - *****Validating the message*****
+2026-04-10 17:12:14,108 - tests.test_001_Registration - INFO - *******Message validation successful...*****
+2026-04-10 17:12:14,165 - tests.test_001_Registration - INFO - *****Clicking on Mr. radiobutton*****
+2026-04-10 17:12:14,262 - tests.test_001_Registration - INFO - *****Setting Password*******
+2026-04-10 17:12:14,365 - tests.test_001_Registration - INFO - *****Selecting Day*******
+2026-04-10 17:12:14,429 - tests.test_001_Registration - INFO - *****Selecting Month*******
+2026-04-10 17:12:14,484 - tests.test_001_Registration - INFO - *****Selecting Year*******
+2026-04-10 17:12:14,541 - tests.test_001_Registration - INFO - *****Clicking on News Letter*****
+2026-04-10 17:12:14,593 - tests.test_001_Registration - INFO - *****Clicking on Offers*****
+2026-04-10 17:12:14,643 - tests.test_001_Registration - INFO - *****Setting First Name******
+2026-04-10 17:12:14,703 - tests.test_001_Registration - INFO - *****Setting Last Name******
+2026-04-10 17:12:14,757 - tests.test_001_Registration - INFO - *****Setting Company Name******
+2026-04-10 17:12:14,829 - tests.test_001_Registration - INFO - *****Setting Address1******
+2026-04-10 17:12:14,904 - tests.test_001_Registration - INFO - *****Setting Address2******
+2026-04-10 17:12:14,980 - tests.test_001_Registration - INFO - *****Selecting Country******
+2026-04-10 17:12:15,048 - tests.test_001_Registration - INFO - *****Setting State Name******
+2026-04-10 17:12:15,108 - tests.test_001_Registration - INFO - *****Setting City Name******
+2026-04-10 17:12:15,162 - tests.test_001_Registration - INFO - *****Setting Zip Code******
+2026-04-10 17:12:15,225 - tests.test_001_Registration - INFO - *****Setting Mobile Number******
+2026-04-10 17:12:16,222 - tests.test_001_Registration - INFO - *****Clicking on Create Account*******
+2026-04-10 17:12:16,256 - tests.test_001_Registration - INFO - *****Validating the Account Created Page Title*******
+2026-04-10 17:12:16,269 - tests.test_001_Registration - INFO - *****Validating the Account Created Header*******
+2026-04-10 17:12:16,283 - tests.test_001_Registration - INFO - *****Validating the Account Created Success Message1*******
+2026-04-10 17:12:16,296 - tests.test_001_Registration - INFO - *****Validating the Account Created Success Message2*******
+2026-04-10 17:12:16,781 - tests.test_001_Registration - INFO - *****Click on Continue Button*******
+2026-04-10 17:12:16,782 - tests.test_001_Registration - INFO - *****Validating Logged In details*******
+2026-04-10 17:12:16,801 - tests.test_001_Registration - INFO - *****Home Page Logged In User Info Validation******
+2026-04-10 17:12:18,207 - tests.test_001_Registration - INFO - *****Click on Home Page Logout Link******
+2026-04-10 17:12:23,608 - tests.test_002_Login - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 17:12:25,856 - tests.test_002_Login - INFO - *****Launching Application*****
+2026-04-10 17:12:25,863 - tests.test_002_Login - INFO - *****Validating Home Page Title*****
+2026-04-10 17:12:26,921 - tests.test_002_Login - INFO - *****Clicking on Login link*****
+2026-04-10 17:12:28,583 - tests.test_002_Login - INFO - *****Clicking on Login Button*****
+2026-04-10 17:12:29,602 - tests.test_002_Login - INFO - *****Click on Home Page Logout Link******
+2026-04-10 17:12:29,625 - tests.test_002_Login - INFO - *****Validating Account Registration Page Title*****
+2026-04-10 17:12:34,674 - tests.test_003_DeleteLogin - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 17:12:36,232 - tests.test_003_DeleteLogin - INFO - *****Launching Application*****
+2026-04-10 17:12:36,237 - tests.test_003_DeleteLogin - INFO - *****Validating Home Page Title*****
+2026-04-10 17:12:37,425 - tests.test_003_DeleteLogin - INFO - *****Clicking on Login link*****
+2026-04-10 17:12:38,531 - tests.test_003_DeleteLogin - INFO - *****Clicking on Login Button*****
+2026-04-10 17:12:39,825 - tests.test_003_DeleteLogin - INFO - *****Click on Delete Account Link******
+2026-04-10 17:12:39,877 - tests.test_003_DeleteLogin - INFO - *****Validating Account Delete Page Title*****
+2026-04-10 17:12:39,882 - tests.test_003_DeleteLogin - INFO - *****Validating Account Delete Message*****
+2026-04-10 17:12:39,900 - tests.test_003_DeleteLogin - INFO - *****Validating Delete Message1*****
+2026-04-10 17:12:39,916 - tests.test_003_DeleteLogin - INFO - *****Validating Delete Message2*****
+2026-04-10 17:12:40,338 - tests.test_003_DeleteLogin - INFO - *****Click on Continue Button*****
+2026-04-10 17:12:45,693 - tests.test_005_Orderconfirm - INFO - *****test_001_AccountRegistration started*****
+2026-04-10 17:12:47,546 - tests.test_005_Orderconfirm - INFO - *****Launching Application*****
+2026-04-10 17:12:47,552 - tests.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
+2026-04-10 17:12:48,526 - tests.test_005_Orderconfirm - INFO - *****Clicking on Login link*****
+2026-04-10 17:12:48,561 - tests.test_005_Orderconfirm - INFO - *****Validating Account Registration Page Title*****
+2026-04-10 17:12:48,561 - tests.test_005_Orderconfirm - INFO - *****Entering user name and password on Registration page*****
+2026-04-10 17:12:49,043 - tests.test_005_Orderconfirm - INFO - *****Clicking on Signup link*****
+2026-04-10 17:12:49,092 - tests.test_005_Orderconfirm - INFO - *****Validating SignUp Page Title*****
+2026-04-10 17:12:49,110 - tests.test_005_Orderconfirm - INFO - *****Validating the message*****
+2026-04-10 17:12:49,110 - tests.test_005_Orderconfirm - INFO - *******Message validation successful...*****
+2026-04-10 17:12:49,157 - tests.test_005_Orderconfirm - INFO - *****Clicking on Mr. radiobutton*****
+2026-04-10 17:12:49,204 - tests.test_005_Orderconfirm - INFO - *****Setting Password*******
+2026-04-10 17:12:49,280 - tests.test_005_Orderconfirm - INFO - *****Selecting Day*******
+2026-04-10 17:12:49,339 - tests.test_005_Orderconfirm - INFO - *****Selecting Month*******
+2026-04-10 17:12:49,392 - tests.test_005_Orderconfirm - INFO - *****Selecting Year*******
+2026-04-10 17:12:49,444 - tests.test_005_Orderconfirm - INFO - *****Clicking on News Letter*****
+2026-04-10 17:12:49,496 - tests.test_005_Orderconfirm - INFO - *****Clicking on Offers*****
+2026-04-10 17:12:49,557 - tests.test_005_Orderconfirm - INFO - *****Setting First Name******
+2026-04-10 17:12:49,625 - tests.test_005_Orderconfirm - INFO - *****Setting Last Name******
+2026-04-10 17:12:49,687 - tests.test_005_Orderconfirm - INFO - *****Setting Company Name******
+2026-04-10 17:12:49,766 - tests.test_005_Orderconfirm - INFO - *****Setting Address1******
+2026-04-10 17:12:49,849 - tests.test_005_Orderconfirm - INFO - *****Setting Address2******
+2026-04-10 17:12:49,951 - tests.test_005_Orderconfirm - INFO - *****Selecting Country******
+2026-04-10 17:12:50,020 - tests.test_005_Orderconfirm - INFO - *****Setting State Name******
+2026-04-10 17:12:50,130 - tests.test_005_Orderconfirm - INFO - *****Setting City Name******
+2026-04-10 17:12:50,210 - tests.test_005_Orderconfirm - INFO - *****Setting Zip Code******
+2026-04-10 17:12:50,307 - tests.test_005_Orderconfirm - INFO - *****Setting Mobile Number******
+2026-04-10 17:12:51,588 - tests.test_005_Orderconfirm - INFO - *****Clicking on Create Account*******
+2026-04-10 17:12:51,617 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Page Title*******
+2026-04-10 17:12:51,628 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Header*******
+2026-04-10 17:12:51,642 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Success Message1*******
+2026-04-10 17:12:51,654 - tests.test_005_Orderconfirm - INFO - *****Validating the Account Created Success Message2*******
+2026-04-10 17:12:52,048 - tests.test_005_Orderconfirm - INFO - *****Click on Continue Button*******
+2026-04-10 17:12:52,049 - tests.test_005_Orderconfirm - INFO - *****Home Page Logged In Info******
+2026-04-10 17:12:52,063 - tests.test_005_Orderconfirm - INFO - *****Home Page Logout Link******
+2026-04-10 17:12:52,076 - tests.test_005_Orderconfirm - INFO - *****Home Page Delete Account Link******
+2026-04-10 17:12:52,089 - tests.test_005_Orderconfirm - INFO - *****Home Page Features Items Section******
+2026-04-10 17:12:52,102 - tests.test_005_Orderconfirm - INFO - *****Home Page Brands Section ******
+2026-04-10 17:12:52,115 - tests.test_005_Orderconfirm - INFO - *****Home Page Category Item Section ******
+2026-04-10 17:12:52,129 - tests.test_005_Orderconfirm - INFO - *****Home Page Recommended Items Section ******
+2026-04-10 17:12:52,143 - tests.test_005_Orderconfirm - INFO - *****Home Page Products Link Validation******
+2026-04-10 17:12:53,042 - tests.test_005_Orderconfirm - INFO - *****Home Page Click on Products Link ******
+2026-04-10 17:12:53,074 - tests.test_005_Orderconfirm - INFO - *****Validate All Products Page Title ******
+2026-04-10 17:12:53,083 - tests.test_005_Orderconfirm - INFO - *****Validate All Products section ******
+2026-04-10 17:12:53,882 - tests.test_005_Orderconfirm - INFO - *****Search a Product******
+2026-04-10 17:12:53,931 - tests.test_005_Orderconfirm - INFO - *****Validate Searched Product section ******
+2026-04-10 17:13:01,196 - tests.test_005_Orderconfirm - INFO - *****Add Products whose price is > Rs.500 to the cart ******
+2026-04-10 17:13:01,704 - tests.test_005_Orderconfirm - INFO - *****Click on View Cart Link******
+2026-04-10 17:13:01,729 - tests.test_005_Orderconfirm - INFO - *****Validate Shoping Cart Page Title******
+2026-04-10 17:13:03,198 - tests.test_005_Orderconfirm - INFO - *****Proceed to Checkout******
+2026-04-10 17:13:03,622 - tests.test_005_Orderconfirm - INFO - *****Place Order******
+2026-04-10 17:13:09,451 - tests.test_005_Orderconfirm - INFO - *****Download Invoice******
+2026-04-10 17:13:09,451 - tests.test_005_Orderconfirm - INFO - *****Verify Invoice******
+2026-04-10 17:13:10,036 - tests.test_005_Orderconfirm - INFO - *****Click on Continue Button******
+2026-04-10 17:13:10,040 - tests.test_005_Orderconfirm - INFO - *****Validating Home Page Title*****
+2026-04-10 17:13:11,410 - tests.test_005_Orderconfirm - INFO - *****Click on Logout Link******
+2026-04-10 17:13:11,433 - tests.test_005_Orderconfirm - INFO - *****Validate Account Registration Page Title******

@@ -26,7 +26,7 @@ class PaymentPage(BasePage):
     #         print(f"Page not found : {e}")
     def validatePageTitle(self):
         actual_title = self.driver.title
-        assert actual_title == Titles.PAYMENT, f"Expected Home Page Title is: {Titles.PAYMENT} and the Actual Home Page Title is: {actual_title}"
+        assert actual_title == Titles.PAYMENT, f"Expected Payment Page Title is: {Titles.PAYMENT} and the Actual Payment Page Title is: {actual_title}"
 
     # def pay_with_card(self,name,number,cvc,month,year):
     #     self.inputText(self.txt_name_on_card, name)

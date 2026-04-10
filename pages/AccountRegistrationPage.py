@@ -25,7 +25,7 @@ class AccountRegistrationPage:
 
     def validatePageTitle(self):
         actual_title = self.driver.title
-        assert actual_title == Titles.HOME,f"Expected Home Page Title is: {Titles.HOME} and the Actual Home Page Title is: {actual_title}"
+        assert actual_title == Titles.REGISTER,f"Expected Registration Page Title is: {Titles.REGISTER} and the Actual Registration Page Title is: {actual_title}"
 
     def clickOnAd(self):
         self.driver.find_element(*self.lnk_ad_xpath).click()

@@ -28,7 +28,7 @@ class AllProductsPage(BasePage):
     #         print(f"Page not found : {e}")
     def validatePageTitle(self):
         actual_title = self.driver.title
-        assert actual_title == Titles.PRODUCTS, f"Expected Home Page Title is: {Titles.PRODUCTS} and the Actual Home Page Title is: {actual_title}"
+        assert actual_title == Titles.PRODUCTS, f"Expected Products Page Title is: {Titles.PRODUCTS} and the Actual Products Page Title is: {actual_title}"
 
 
     def validateAllProducts(self):

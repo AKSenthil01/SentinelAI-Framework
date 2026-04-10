@@ -83,7 +83,7 @@ class AccountCreatedPage(BasePage):
 
     def validatePageTitle(self):
         actual_title = self.driver.title
-        assert actual_title == Titles.ACCOUNT, f"Expected Home Page Title is: {Titles.ACCOUNT} and the Actual Home Page Title is: {actual_title}"
+        assert actual_title == Titles.ACCOUNT, f"Expected Accounts Page Title is: {Titles.ACCOUNT} and the Actual Accounts Page Title is: {actual_title}"
 
 
     def handleAdPopup(self):
