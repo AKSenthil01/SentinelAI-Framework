@@ -7,6 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.BasePage import BasePage
+from constants.ui_constants import Titles, Messages
 
 
 class AccountCreatedPage(BasePage):
@@ -15,6 +16,9 @@ class AccountCreatedPage(BasePage):
     txt_msg2_xpath=(By.XPATH, "//p[text()='You can now take advantage of member privileges to enhance your online shopping experience with us.']")
     btn_continue_xpath=(By.XPATH,"//a[text()='Continue']")
     btn_skipAd_Id=(By.ID, "//div[@id='dismiss-button']")
+    txt_accountDeleted_xpath=(By.XPATH, "//h2[@data-qa='account-deleted']")
+    txt_deletedMsg1_xpath = (By.XPATH, "//p[text()='Your account has been permanently deleted!']")
+    txt_deletedMsg2_xpath = (By.XPATH, "//p[text()='You can create new account to take advantage of member privileges to enhance your online shopping experience with us.']")
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -68,14 +72,19 @@ class AccountCreatedPage(BasePage):
             real_url = self.driver.current_url.split("#")[0]
             self.driver.get(real_url)
 
+    # def validatePageTitle(self):
+    #     try:
+    #         #self.waitForElement((By.XPATH,self.txt_Account_xpath))
+    #         expected_title = "Automation Exercise - Account Created"
+    #         actual_title = self.page_title()  # Retrieve using driver.title
+    #         assert actual_title == expected_title, "Title does not match"
+    #     except Exception as e:
+    #         print(f"Page not found : {e}")
+
     def validatePageTitle(self):
-        try:
-            #self.waitForElement((By.XPATH,self.txt_Account_xpath))
-            expected_title = "Automation Exercise - Account Created"
-            actual_title = self.page_title()  # Retrieve using driver.title
-            assert actual_title == expected_title, "Title does not match"
-        except Exception as e:
-            print(f"Page not found : {e}")
+        actual_title = self.driver.title
+        assert actual_title == Titles.ACCOUNT, f"Expected Home Page Title is: {Titles.ACCOUNT} and the Actual Home Page Title is: {actual_title}"
+
 
     def handleAdPopup(self):
         #close_btn = (By.XPATH, "//button[text()='Close'] | //u[text()='Continue Shopping']")
@@ -89,3 +98,20 @@ class AccountCreatedPage(BasePage):
             pass
 
 
+    def validateAccountDelete(self):
+        try:
+            return self.driver.find_element(*self.txt_accountDeleted_xpath).is_displayed()
+        except Exception as e:
+            print(f"Element not found : {e}")
+
+    def validateDeleteMsg1(self):
+        try:
+            return self.driver.find_element(*self.txt_deletedMsg1_xpath).is_displayed()
+        except Exception as e:
+            print(f"Element not found : {e}")
+
+    def validateDeleteMsg2(self):
+        try:
+            return self.driver.find_element(*self.txt_deletedMsg2_xpath).is_displayed()
+        except Exception as e:
+            print(f"Element not found : {e}")

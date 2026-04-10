@@ -3,7 +3,7 @@ import time
 from selenium.common import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from pages.BasePage import BasePage
-
+from constants.ui_constants import Titles, Messages
 
 class AllProductsPage(BasePage):
     div_allProducts_xpath = (By.XPATH,"//div[@class='features_items']")
@@ -18,14 +18,18 @@ class AllProductsPage(BasePage):
         super().__init__(driver)
         self.driver = driver
 
+    # def validatePageTitle(self):
+    #     try:
+    #         #self.waitForElement((By.XPATH,self.txt_Account_xpath))
+    #         expected_title = "Automation Exercise - All Products"
+    #         actual_title = self.page_title()  # Retrieve using driver.title
+    #         assert actual_title == expected_title, "Title does not match"
+    #     except Exception as e:
+    #         print(f"Page not found : {e}")
     def validatePageTitle(self):
-        try:
-            #self.waitForElement((By.XPATH,self.txt_Account_xpath))
-            expected_title = "Automation Exercise - All Products"
-            actual_title = self.page_title()  # Retrieve using driver.title
-            assert actual_title == expected_title, "Title does not match"
-        except Exception as e:
-            print(f"Page not found : {e}")
+        actual_title = self.driver.title
+        assert actual_title == Titles.PRODUCTS, f"Expected Home Page Title is: {Titles.PRODUCTS} and the Actual Home Page Title is: {actual_title}"
+
 
     def validateAllProducts(self):
         try:

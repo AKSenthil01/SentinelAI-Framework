@@ -18,16 +18,12 @@ from utils.data_loader import load_test_data
 
 
 class Test005OrderConfirm:
-    #baseURL="https://automationexercise.com/"
-    #logger=LogGen.loggen()
     logger = get_custom_logger(__name__)
     data = load_test_data()
 
     def test_OrderConfirm(self, setup, random_name, random_email , payment_data ,reg_password):
         self.logger.info("*****test_001_AccountRegistration started*****")
-        #self.logger.setLevel(logging.DEBUG)
         self.driver=setup
-        #self.driver.get(self.baseURL)
         self.driver.get(get_base_url())
         self.logger.info("*****Launching Application*****")
         self.driver.maximize_window()

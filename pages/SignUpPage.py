@@ -3,7 +3,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.BasePage import BasePage
-
+from constants.ui_constants import Titles, Messages
 
 class SignUp(BasePage):
     txt_info_xpath=(By.XPATH,"//b[normalize-space()='Enter Account Information']")
@@ -35,15 +35,17 @@ class SignUp(BasePage):
         self.driver=driver
         #self.wait = WebDriverWait(self.driver, 5)
 
+    # def validatePageTitle(self):
+    #     try:
+    #         #self.waitForElement((By.XPATH,self.txt_Account_xpath))
+    #         expected_title = "Automation Exercise - Signup"
+    #         actual_title = self.page_title()  # Retrieve using driver.title
+    #         assert actual_title == expected_title, "Title does not match"
+    #     except Exception as e:
+    #         print(f"Page not found : {e}")
     def validatePageTitle(self):
-        try:
-            #self.waitForElement((By.XPATH,self.txt_Account_xpath))
-            expected_title = "Automation Exercise - Signup"
-            actual_title = self.page_title()  # Retrieve using driver.title
-            assert actual_title == expected_title, "Title does not match"
-        except Exception as e:
-            print(f"Page not found : {e}")
-
+        actual_title = self.driver.title
+        assert actual_title == Titles.SIGNUP, f"Expected Home Page Title is: {Titles.SIGNUP} and the Actual Home Page Title is: {actual_title}"
 
     def validateInfo(self):
         try:

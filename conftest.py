@@ -1,4 +1,4 @@
-
+import json
 import os
 from datetime import datetime
 
@@ -122,6 +122,11 @@ def setup():
 #     # 6. Cleanup
 #     driver.quit()
 
+# @pytest.fixture
+# def random_name():
+#     """Generates a random email ID for testing."""
+#     username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+#     return username
 
 @pytest.fixture
 def random_name():
@@ -130,10 +135,22 @@ def random_name():
     return username
 
 @pytest.fixture
+def existing_user():
+    with open("test_data/user.json") as f:
+        data = json.load(f)
+    return data
+
+@pytest.fixture
 def random_email():
     """Generates a random email ID for testing."""
     username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
     email = f"test_{username}@example.com"
+    #user_data = {
+    #     "email": random_email,
+    #     "password": reg_password
+    # }
+    with open("test_data/user.json", "w") as f:
+        json.dump(email, f)
     return email
 
 def pytest_configure(config):
