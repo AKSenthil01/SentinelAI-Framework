@@ -1,5 +1,0 @@
-Element not found : 'WebDriver' object has no attribute 'wait_for_element'
-Added product with price: 600
-Added product with price: 1000
-Added product with price: 700
-Added product with price: 679

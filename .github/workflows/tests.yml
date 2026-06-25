@@ -2,31 +2,32 @@ name: Run Automation Tests
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     steps:
 
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
-      - name: Install Python Dependencies
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-
-      - name: Install Allure
-        run: |
-          npm install -g allure-commandline --save-dev
+          npm install -g allure-commandline
 
       - name: Run Tests
         run: |
@@ -37,7 +38,7 @@ jobs:
         run: |
           allure generate allure-results --clean -o allure-report
 
-      - name: Deploy Allure Report
+      - name: Deploy Report
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:

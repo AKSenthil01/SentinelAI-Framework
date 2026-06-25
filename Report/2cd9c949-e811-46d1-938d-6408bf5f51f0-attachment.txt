@@ -1,0 +1,26 @@
+Element not found : 'WebDriver' object has no attribute 'wait_for_element'
+The error is that:  Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0xb0a543+103f3]
+	chromedriver!GetHandleVerifier [0xb0a584+10434]
+	chromedriver!(No symbol) [0x90a700]
+	chromedriver!(No symbol) [0x953bab]
+	chromedriver!(No symbol) [0x953dcb]
+	chromedriver!(No symbol) [0x995b32]
+	chromedriver!(No symbol) [0x976114]
+	chromedriver!(No symbol) [0x99339a]
+	chromedriver!(No symbol) [0x975e66]
+	chromedriver!(No symbol) [0x949159]
+	chromedriver!(No symbol) [0x949f24]
+	chromedriver!GetHandleVerifier [0xd94bba+29aa6a]
+	chromedriver!GetHandleVerifier [0xd90119+295fc9]
+	chromedriver!GetHandleVerifier [0xdb103e+2b6eee]
+	chromedriver!GetHandleVerifier [0xb237f6+296a6]
+	chromedriver!GetHandleVerifier [0xb2a91d+307cd]
+	chromedriver!GetHandleVerifier [0xb12d18+18bc8]
+	chromedriver!GetHandleVerifier [0xb12ec5+18d75]
+	chromedriver!GetHandleVerifier [0xafc05f+1f0f]
+	KERNEL32!BaseThreadInitThunk [0x76f95d49+19]
+	ntdll!RtlInitializeExceptionChain [0x7735d83b+6b]
+	ntdll!RtlGetAppContainerNamedObjectPath [0x7735d7c1+231]
+
