@@ -53,13 +53,14 @@ def setup():
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
 
-    # Use WebDriver Manager (recommended)
+
     driver = webdriver.Chrome(
         service=ChromeService(ChromeDriverManager().install()),
         options=chrome_options
     )
 
-    driver.maximize_window()
+    #driver.maximize_window()
+    driver.set_window_size(1920, 1080)
 
     yield driver
 
@@ -149,12 +150,19 @@ def pytest_runtest_makereport(item, call):
             file_path = os.path.join(reports_dir, file_name)
 
             # 3. Capture the screenshot
+            # driver.save_screenshot(file_path)
+            #
+            # allure.attach(driver.get_screenshot_as_png(),
+            #               name="Failure screenshot",
+            #               attachment_type=allure.attachment_type.PNG
+            #               )
             driver.save_screenshot(file_path)
 
-            allure.attach(driver.get_screenshot_as_png(),
-                          name="Failure screenshot",
-                          attachment_type=allure.attachment_type.PNG
-                          )
+            allure.attach.file(
+                file_path,
+                name="Failure Screenshot",
+                attachment_type=allure.attachment_type.PNG
+            )
 
             # 4. Attach to HTML report
             if file_path:
