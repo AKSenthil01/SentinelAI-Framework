@@ -2,6 +2,8 @@ import json
 import os
 from datetime import datetime
 
+import allure
+import faker
 #import undetected_chromedriver as uc
 import pytest
 import pytest_html
@@ -19,6 +21,8 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+
+fake=faker.Faker()
 
 @pytest.fixture
 def setup():
@@ -61,77 +65,18 @@ def setup():
 
     driver.quit()
 
-#***************Was Already working start**********************************************
-# @pytest.fixture
-# def setup():
-#     #driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-#     # Define a custom download directory
-#     download_dir = os.path.join(os.getcwd(), "downloads")
-#     if not os.path.exists(download_dir):
-#         os.makedirs(download_dir)
-#
-#     chrome_options = webdriver.ChromeOptions()
-#     prefs = {
-#         "profile.default_content_settings.popups": 0,  # Disable all popups
-#         "download.default_directory": download_dir,  # Set path
-#         "download.prompt_for_download": False,  # Disable popup
-#         "down.directory_upgrade": True,
-#         "safebrowsing.enabled": True  # Skip security warnings
-#     }
-#     chrome_options.add_experimental_option("prefs", prefs)
-#     chrome_options.add_argument("--disable-notifications")
-#     chrome_options.add_argument("--disable-popup-blocking")
-#     chrome_options.page_load_strategy = 'eager'
-#
-#     driver = webdriver.Chrome(options=chrome_options)
-#     yield driver
-#     driver.quit()
-#     return driver
-#***************Was Already working end**********************************************
 
-# def setup():
-#     # 1. Keep your existing download directory logic
-#     download_dir = os.path.join(os.getcwd(), "downloads")
-#     if not os.path.exists(download_dir):
-#         os.makedirs(download_dir)
-#
-#     # 2. Use uc.ChromeOptions (Senior approach)
-#     options = uc.ChromeOptions()
-#
-#     # 3. Re-apply your critical preferences
-#     prefs = {
-#         "profile.default_content_settings.popups": 0,
-#         "download.default_directory": download_dir,
-#         "download.prompt_for_download": False,
-#         "download.directory_upgrade": True,  # Corrected 'down.' to 'download.'
-#         "safebrowsing.enabled": True
-#     }
-#     options.add_experimental_option("prefs", prefs)
-#
-#     # 4. Standard arguments to keep the browser clean
-#     options.add_argument("--disable-notifications")
-#     options.add_argument("--disable-popup-blocking")
-#     options.add_argument("--start-maximized")
-#
-#     # 5. Initialize the Undetected Driver
-#     # Note: uc handles the Driver Manager/Service automatically!
-#     driver = uc.Chrome(options=options)
-#
-#     yield driver
-#
-#     # 6. Cleanup
-#     driver.quit()
-
-# @pytest.fixture
+#@pytest.fixture
 # def random_name():
 #     """Generates a random email ID for testing."""
 #     username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
 #     return username
-
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def random_name():
-    """Generates a random email ID for testing."""
-    username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+    """Generates a random name for testing."""
+    # fake=faker.Faker()
+    username = fake.name()
+    #username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
     return username
 
 @pytest.fixture
@@ -140,15 +85,21 @@ def existing_user():
         data = json.load(f)
     return data
 
-@pytest.fixture
+# @pytest.fixture
+# def random_email():
+#     """Generates a random email ID for testing."""
+#     username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+#     email = f"test_{username}@example.com"
+#     with open("test_data/user.json", "w") as f:
+#         json.dump(email, f)
+#     return email
+
+@pytest.fixture(autouse=True)
 def random_email():
     """Generates a random email ID for testing."""
-    username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
-    email = f"test_{username}@example.com"
-    #user_data = {
-    #     "email": random_email,
-    #     "password": reg_password
-    # }
+    # username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+    # email = f"test_{username}@example.com"
+    email = fake.email()
     with open("test_data/user.json", "w") as f:
         json.dump(email, f)
     return email
@@ -200,6 +151,11 @@ def pytest_runtest_makereport(item, call):
             # 3. Capture the screenshot
             driver.save_screenshot(file_path)
 
+            allure.attach(driver.get_screenshot_as_png(),
+                          name="Failure screenshot",
+                          attachment_type=allure.attachment_type.PNG
+                          )
+
             # 4. Attach to HTML report
             if file_path:
                 html = '<div><img src="screenshots/%s" alt="screenshot" style="width:304px;height:228px;" ' \
@@ -212,8 +168,4 @@ def pytest_addoption(parser):
     # This tells pytest how to read the custom line from pytest.ini
     parser.addini("base_url", help="Base URL for the application")
 
-# @pytest.fixture
-# def base_url(pytestconfig):
-#     # This retrieves the value and makes it available as a fixture
-#     return pytestconfig.getini("base_url")
 
