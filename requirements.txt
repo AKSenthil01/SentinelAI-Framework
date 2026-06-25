@@ -1,4 +1,4 @@
-Pytest
+pytest
 selenium
 webdriver-manager
 pytest-html
@@ -6,6 +6,6 @@ pytest-xdist
 pytest-ordering
 openpyxl
 allure-pytest
+faker
+python-dotenv
 
-
-undetected-chromedriver
