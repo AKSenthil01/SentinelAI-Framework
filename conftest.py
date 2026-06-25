@@ -94,7 +94,7 @@ def existing_user():
 #         json.dump(email, f)
 #     return email
 
-@pytest.fixture(autouse=True)
+@pytest.fixture()
 def random_email():
     """Generates a random email ID for testing."""
     # username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
