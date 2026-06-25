@@ -28,12 +28,18 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
       - name: Install Allure
         run: |
-          wget https://github.com/allure-framework/allure2/releases/latest/download/allure-2.34.1.tgz
-          tar -zxvf allure-*.tgz
-          sudo mv allure-*/ /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          curl -L -o allure.tgz https://github.com/allure-framework/allure2/releases/download/2.34.1/allure-2.34.1.tgz
+          tar -zxvf allure.tgz
+          sudo mv allure-2.34.1 /opt/allure
+          sudo ln -sf /opt/allure/bin/allure /usr/local/bin/allure
+          allure --version
 
       - name: Run tests
         run: |
