@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 import allure
-import faker
+from faker import Faker
 #import undetected_chromedriver as uc
 import pytest
 import pytest_html
@@ -22,7 +22,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
-fake=faker.Faker()
+fake=Faker()
 
 @pytest.fixture
 def setup():

@@ -1,0 +1,31 @@
+The error is:  Message: element click intercepted: Element <input type="checkbox" name="optin" id="optin" value="1"> is not clickable at point (295, 666). Other element would receive the click: <iframe id="aswift_1" name="aswift_1" style="min-height: auto; max-height: none; min-width: auto; max-width: none; width: 1005px !important; height: 124px !important; display: block; margin: 0px auto;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="1005" height="124" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="https://googleads.g.doubleclick.net/pagead/html/r20260624/r20190131/zrt_lookup_fy2021.html#RS-1-&amp;adk=1812271801&amp;client=ca-pub-1677597403311019&amp;fa=1&amp;ifi=2&amp;uci=a!2&amp;btvi=1" data-google-container-id="a!2" tabindex="0" title="Advertisement" aria-label="Advertisement" data-google-query-id="CP_Bve7OopUDFUOOuQUdyYY3Cw" data-load-complete="true"></iframe>
+  (Session info: chrome=149.0.7827.54); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementclickinterceptedexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0xc5a543+103f3]
+	chromedriver!GetHandleVerifier [0xc5a584+10434]
+	chromedriver!(No symbol) [0xa5a700]
+	chromedriver!(No symbol) [0xaa9a88]
+	chromedriver!(No symbol) [0xaa8119]
+	chromedriver!(No symbol) [0xaa5f05]
+	chromedriver!(No symbol) [0xaa5114]
+	chromedriver!(No symbol) [0xa9abe7]
+	chromedriver!(No symbol) [0xac60cc]
+	chromedriver!(No symbol) [0xa9a624]
+	chromedriver!(No symbol) [0xac6294]
+	chromedriver!(No symbol) [0xae339a]
+	chromedriver!(No symbol) [0xac5e66]
+	chromedriver!(No symbol) [0xa99159]
+	chromedriver!(No symbol) [0xa99f24]
+	chromedriver!GetHandleVerifier [0xee4bba+29aa6a]
+	chromedriver!GetHandleVerifier [0xee0119+295fc9]
+	chromedriver!GetHandleVerifier [0xf0103e+2b6eee]
+	chromedriver!GetHandleVerifier [0xc737f6+296a6]
+	chromedriver!GetHandleVerifier [0xc7a91d+307cd]
+	chromedriver!GetHandleVerifier [0xc62d18+18bc8]
+	chromedriver!GetHandleVerifier [0xc62ec5+18d75]
+	chromedriver!GetHandleVerifier [0xc4c05f+1f0f]
+	KERNEL32!BaseThreadInitThunk [0x76f95d49+19]
+	ntdll!RtlInitializeExceptionChain [0x7735d83b+6b]
+	ntdll!RtlGetAppContainerNamedObjectPath [0x7735d7c1+231]
+
+Element not found : 'WebDriver' object has no attribute 'wait_for_element'
