@@ -1,0 +1,17 @@
+{
+    "id::submit123": {
+        "alternatives": [
+            {
+                "locator": [
+                    "id",
+                    "submit"
+                ],
+                "source": "Fuzzy",
+                "success": 1,
+                "failure": 0,
+                "confidence": 100.0,
+                "last_used": "2026-07-23 22:16:56"
+            }
+        ]
+    }
+}

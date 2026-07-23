@@ -4,7 +4,7 @@ import time
 from selenium.webdriver.common.by import By
 
 from pages.BasePage import BasePage
-from constants.ui_constants import Titles, Messages
+from constants.ui_constants import Titles
 
 class OrderPlacedPage(BasePage):
     txt_orderPlaced_xpath = (By.XPATH,"//b[text()='Order Placed!']")
@@ -18,18 +18,9 @@ class OrderPlacedPage(BasePage):
 
     def validateOrderPlaced(self):
         try:
-            return self.driver.find_element(*self.txt_orderPlaced_xpath).is_displayed()
+            return self.find(*self.txt_orderPlaced_xpath).is_displayed()
         except Exception as e:
             print(f"Element not found : {e}")
-
-    # def validatePageTitle(self):
-    #     try:
-    #         #self.waitForElement((By.XPATH,self.txt_Account_xpath))
-    #         expected_title = "Automation Exercise - Order Placed"
-    #         actual_title = self.page_title()  # Retrieve using driver.title
-    #         assert actual_title == expected_title, "Title does not match"
-    #     except Exception as e:
-    #         print(f"Page not found : {e}")
 
     def validatePageTitle(self):
         actual_title = self.driver.title
@@ -38,19 +29,13 @@ class OrderPlacedPage(BasePage):
 
     def validateOrderConfirmMsg(self):
         try:
-            return self.driver.find_element(*self.txt_orderConfirm_xpath).is_displayed()
+            return self.find(*self.txt_orderConfirm_xpath).is_displayed()
         except Exception as e:
             print(f"Element not found : {e}")
 
-    # def clickNewsCbk(self):
-    #     try:
-    #         self.driver.find_element(*self.cbx_news_id).click()
-    #     except Exception as e:
-    #         print("The error is: ", e)
-
     def downloadInvoice(self):
-        #self.clickElement(self.btn_dnloadInvoice_xpath)
-        self.click_element(self.btn_dnloadInvoice_xpath)
+        self.clickElement(self.btn_dnloadInvoice_xpath)
+        #self.click_element(self.btn_dnloadInvoice_xpath)
         # Give the file a few seconds to actually hit the hard drive
         time.sleep(3)
 
@@ -64,11 +49,35 @@ class OrderPlacedPage(BasePage):
 
     def clickContinue(self):
         try:
-            #self.clickElement(self.btn_continue_xpath)
-            #self.click_element(self.btn_continue_xpath)
-            self.click_and_bypass(self.btn_continue_xpath, "automationexercise.com")
+            #self.click_and_bypass(self.btn_continue_xpath, "automationexercise.com")
+            self.click_and_bypass(self.btn_continue_xpath)
         except Exception as e:
             print(f"Element not found : {e}")
+
+    def verify_order_success(self):
+
+        assert self.validateOrderPlaced(), \
+            "Order Placed message not displayed."
+
+        assert self.validateOrderConfirmMsg(), \
+            "Order Confirmation message not displayed."
+
+        return self
+
+    def download_invoice(self, file_name):
+
+        self.downloadInvoice()
+
+        assert self.verifyInvoiceDownloaded(file_name), \
+            f"Invoice '{file_name}' was not downloaded."
+
+        return self
+
+    def continue_shopping(self):
+
+        self.clickContinue()
+
+        return self
 
 
 

@@ -1,27 +1,15 @@
 import json
-import os
 from datetime import datetime
-
 import allure
 from faker import Faker
-#import undetected_chromedriver as uc
-import pytest
 import pytest_html
-#import uc
 from dotenv import load_dotenv
-from selenium import webdriver
-import random
-import string
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service as ChromeService
-
-
 import os
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-
+from utils.healing_dashboard import HealingDashboard
 fake=Faker()
 
 @pytest.fixture
@@ -47,7 +35,7 @@ def setup():
     chrome_options.add_argument("--disable-popup-blocking")
     chrome_options.page_load_strategy = 'eager'
 
-    # CONDITIONAL HEADLESS (KEY PART)
+    # CI
     if os.getenv("CI") == "true":
         chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--no-sandbox")
@@ -59,25 +47,35 @@ def setup():
         options=chrome_options
     )
 
-    #driver.maximize_window()
     driver.set_window_size(1920, 1080)
 
     yield driver
 
     driver.quit()
 
+@pytest.fixture
+def driver(setup):
+    return setup
 
-#@pytest.fixture
-# def random_name():
-#     """Generates a random email ID for testing."""
-#     username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
-#     return username
-@pytest.fixture(autouse=True)
+@pytest.fixture
+def test_data():
+    """
+    Loads static test data from test_data/test_data.json
+    """
+
+    file_path = os.path.join(
+        os.getcwd(),
+        "test_data",
+        "test_data.json"
+    )
+
+    with open(file_path, encoding="utf-8") as f:
+        return json.load(f)
+
+@pytest.fixture
 def random_name():
     """Generates a random name for testing."""
-    # fake=faker.Faker()
     username = fake.name()
-    #username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
     return username
 
 @pytest.fixture
@@ -86,20 +84,9 @@ def existing_user():
         data = json.load(f)
     return data
 
-# @pytest.fixture
-# def random_email():
-#     """Generates a random email ID for testing."""
-#     username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
-#     email = f"test_{username}@example.com"
-#     with open("test_data/user.json", "w") as f:
-#         json.dump(email, f)
-#     return email
-
-@pytest.fixture()
+@pytest.fixture
 def random_email():
     """Generates a random email ID for testing."""
-    # username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
-    # email = f"test_{username}@example.com"
     email = fake.email()
     with open("test_data/user.json", "w") as f:
         json.dump(email, f)
@@ -139,7 +126,7 @@ def pytest_runtest_makereport(item, call):
         xfail = hasattr(report, 'wasxfail')
         if (report.failed or xfail):
             # 1. Get the driver instance from the test item
-            driver = item.funcargs['setup']
+            driver = item.funcargs.get("driver")
 
             # 2. Define screenshot name and path
             file_name = f"Screenshot_{datetime.now().strftime('%d-%m-%Y_%H-%M-%S')}.png"
@@ -151,12 +138,27 @@ def pytest_runtest_makereport(item, call):
 
             # 3. Capture the screenshot
             # driver.save_screenshot(file_path)
-            #
-            # allure.attach(driver.get_screenshot_as_png(),
-            #               name="Failure screenshot",
-            #               attachment_type=allure.attachment_type.PNG
-            #               )
-            driver.save_screenshot(file_path)
+            if driver:
+                driver.save_screenshot(file_path)
+
+                allure.attach.file(
+
+                    file_path,
+
+                    name="Failure Screenshot",
+
+                    attachment_type=allure.attachment_type.PNG
+
+                )
+
+                html = (
+                        '<div><img src="screenshots/%s" '
+                        'style="width:304px;height:228px;" '
+                        'onclick="window.open(this.src)"/></div>'
+                        % file_name
+                )
+
+                extra.append(pytest_html.extras.html(html))
 
             allure.attach.file(
                 file_path,
@@ -177,3 +179,5 @@ def pytest_addoption(parser):
     parser.addini("base_url", help="Base URL for the application")
 
 
+def pytest_sessionfinish(session, exitstatus):
+    HealingDashboard.generate()

@@ -5,10 +5,11 @@
     "city": "Chennai",
     "zip_code": "600001",
     "mobile": "8888088880",
-    "cost": 500,
     "days": "1",
     "months": "9",
-    "years": "1990"
+    "years": "1990",
+    "product": "Top",
+    "price_threshold": 500
   }
 }
 

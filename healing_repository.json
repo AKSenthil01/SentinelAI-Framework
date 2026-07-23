@@ -1,0 +1,14 @@
+{
+    "id:submit123": [
+        {
+            "locator": [
+                "id",
+                "submit"
+            ],
+            "source": "Fuzzy",
+            "success": 2,
+            "failure": 0,
+            "score": 100
+        }
+    ]
+}

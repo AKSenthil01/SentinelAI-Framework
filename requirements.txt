@@ -8,4 +8,6 @@ openpyxl
 allure-pytest
 faker
 python-dotenv
+google-genai
+
 
