@@ -1,84 +1,140 @@
 """
-Strategy Recovery Engine
+Enterprise Strategy Recovery
 
-Generates alternative locators using predefined
-heuristics and naming strategies.
+Attempts deterministic locator recovery before AI.
 """
 
-import time
-
-from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
 
 from utils.healing.healing_base import HealingBase
 from utils.healing.console_logger import ConsoleLogger
 from utils.healing_logger import HealingLogger
 from utils.locator_repository import LocatorRepository
-from utils.locator_strategy import LocatorStrategy
 
 
 class StrategyRecovery(HealingBase):
 
     def recover(
-
             self,
-
             driver,
-
             wait,
-
             locator,
-
             condition
-
     ):
-
-        by, value = locator
 
         ConsoleLogger.trying("Strategy")
 
-        candidates = LocatorStrategy.generate(
+        by, value = locator
 
-            by,
+        candidates = []
 
-            value
+        #
+        # ID recovery
+        #
 
-        )
+        if by == By.ID:
 
-        if not candidates:
+            candidates.extend([
 
-            ConsoleLogger.failed("Strategy")
+                (By.CSS_SELECTOR, f"[id='{value}']"),
 
-            return None
+                (By.CSS_SELECTOR, f"#{value}")
 
-        for candidate in candidates:
+            ])
 
-            start = time.perf_counter()
+        #
+        # NAME recovery
+        #
+
+        elif by == By.NAME:
+
+            candidates.extend([
+
+                (By.CSS_SELECTOR, f"[name='{value}']"),
+
+                (By.XPATH, f"//*[@name='{value}']")
+
+            ])
+
+        #
+        # XPATH recovery
+        #
+
+        elif by == By.XPATH:
+
+            #
+            # Download Invoice
+            #
+
+            if "Download Invoice" in value:
+
+                candidates.extend([
+
+                    (By.CSS_SELECTOR, "[data-qa='download-invoice']"),
+
+                    (By.LINK_TEXT, "Download Invoice"),
+
+                    (By.PARTIAL_LINK_TEXT, "Invoice")
+
+                ])
+
+            #
+            # Continue
+            #
+
+            elif "Continue" in value:
+
+                candidates.extend([
+
+                    (By.LINK_TEXT, "Continue"),
+
+                    (By.PARTIAL_LINK_TEXT, "Continue"),
+
+                    (By.XPATH, "//*[normalize-space()='Continue']")
+
+                ])
+
+            #
+            # Home
+            #
+
+            elif "Home" in value:
+
+                candidates.extend([
+
+                    (By.CSS_SELECTOR, "[data-qa='home']"),
+
+                    (By.LINK_TEXT, "Home"),
+
+                    (By.XPATH, "//*[normalize-space()='Home']")
+
+                ])
+
+        #
+        # Try every candidate
+        #
+
+        for recovered_locator in candidates:
 
             try:
 
                 element = wait.until(
 
-                    condition(candidate)
+                    condition(recovered_locator)
 
                 )
 
-                duration = (
-
-                    time.perf_counter() - start
-
-                ) * 1000
-
                 #
-                # Learn this locator
+                # Learn
                 #
 
                 LocatorRepository.add_locator(
 
-                    by,
+                    locator[0],
 
-                    value,
+                    locator[1],
 
-                    candidate,
+                    recovered_locator,
 
                     source="Strategy"
 
@@ -86,23 +142,19 @@ class StrategyRecovery(HealingBase):
 
                 LocatorRepository.record_success(
 
-                    by,
+                    locator[0],
 
-                    value,
+                    locator[1],
 
-                    candidate
+                    recovered_locator
 
                 )
-
-                #
-                # Healing Log
-                #
 
                 HealingLogger.log(
 
                     original=locator,
 
-                    recovered=candidate,
+                    recovered=recovered_locator,
 
                     source="Strategy",
 
@@ -110,15 +162,13 @@ class StrategyRecovery(HealingBase):
 
                     confidence=90,
 
-                    duration_ms=round(duration, 2),
+                    reason="Deterministic recovery",
+
+                    duration_ms=0,
 
                     repository_updated=True
 
                 )
-
-                #
-                # Console Output
-                #
 
                 ConsoleLogger.success(
 
@@ -126,9 +176,9 @@ class StrategyRecovery(HealingBase):
 
                     original=locator,
 
-                    recovered=candidate,
+                    recovered=recovered_locator,
 
-                    duration=duration,
+                    duration=0,
 
                     confidence=90,
 
@@ -136,21 +186,11 @@ class StrategyRecovery(HealingBase):
 
                 )
 
-                ConsoleLogger.finished()
-
                 return element
 
-            except TimeoutException:
+            except Exception:
 
-                LocatorRepository.record_failure(
-
-                    by,
-
-                    value,
-
-                    candidate
-
-                )
+                continue
 
         ConsoleLogger.failed("Strategy")
 

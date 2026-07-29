@@ -20,6 +20,9 @@ class HealingDashboard:
 
         logs = []
 
+        print("\nDashboard loading:")
+        print(os.path.abspath(HealingDashboard.LOG_FILE))
+
         if os.path.exists(HealingDashboard.LOG_FILE):
 
             try:
@@ -30,13 +33,18 @@ class HealingDashboard:
                         encoding="utf-8"
                 ) as f:
 
-                    content = f.read().strip()
+                    logs = json.load(f)
 
-                    if content:
-                        logs = json.loads(content)
+                print(f"Dashboard loaded {len(logs)} healing events.")
 
-            except Exception:
+            except Exception as e:
+
+                print("Dashboard load failed:", e)
+
                 logs = []
+        else:
+
+            print("Dashboard log file not found.")
 
         # -------------------------
         # Statistics

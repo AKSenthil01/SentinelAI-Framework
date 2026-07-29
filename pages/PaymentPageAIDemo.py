@@ -56,8 +56,29 @@ class PaymentPageAIDemo(BasePage):
             EC.element_to_be_clickable
         )
 
-        #ClickHelper.click(self.driver, pay_button)
-        print("\nRecovered WebElement =", pay_button)
-        print("AI Recovery completed successfully.")
+        ClickHelper.click(
+            self.driver,
+            pay_button
+        )
+
+        #
+        # Wait until Order Placed page opens
+        #
+
+        self.wait.until(
+
+            EC.visibility_of_element_located(
+
+                (
+                    By.XPATH,
+                    "//b[text()='Order Placed!']"
+                )
+
+            )
+
+        )
+
+        print("Payment successful")
+
         return self
 

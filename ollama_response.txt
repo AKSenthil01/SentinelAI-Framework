@@ -1,5 +1,0 @@
-After analyzing the provided HTML, I have found the same element that the failed locator refers to. Here is the recovered locator:
-
-`css=#confirm_payment_button_ai_demo`
-
-This locator uses the CSS selector syntax and targets an `<a>` element with the ID `confirm_payment_button_ai_demo`.

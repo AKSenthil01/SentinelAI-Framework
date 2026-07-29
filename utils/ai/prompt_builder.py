@@ -1,29 +1,30 @@
 # """
 # Enterprise Prompt Builder
 #
-# Builds deterministic prompts for local LLMs
-# like Llama3/Mistral.
+# Builds deterministic prompts for Ollama.
 #
-# The goal is to return ONE Selenium locator only.
+# Goal:
+# Return ONLY one Selenium locator for the REAL element.
 # """
 #
 #
 # class PromptBuilder:
 #
 #     @staticmethod
-#     def build_locator_prompt(
-#             locator,
-#             page_title,
-#             page_url,
-#             html
-#     ):
+#     def build_locator_prompt(locator, page_title, page_url, html):
+#
+#         if locator is None:
+#             raise ValueError("locator cannot be None")
+#
+#         if html is None:
+#             raise ValueError("HTML extraction returned None")
 #
 #         by, value = locator
 #
-#         return f"""
-# You are an expert Selenium Automation Engineer.
+#         prompt = f"""
+# You are an expert Selenium Locator Recovery Engine.
 #
-# A Selenium locator has failed.
+# Your ONLY task is to identify the REAL locator of the target element.
 #
 # ====================================================
 # PAGE INFORMATION
@@ -36,29 +37,61 @@
 # {page_url}
 #
 # ====================================================
-# FAILED LOCATOR
+# BROKEN LOCATOR
 # ====================================================
+#
+# The locator below is INVALID.
+#
+# DO NOT repair it.
+#
+# DO NOT rewrite it.
+#
+# DO NOT convert it to another locator strategy.
+#
+# DO NOT reuse its value.
+#
+# Ignore it completely.
+#
+# Broken locator:
 #
 # {by}={value}
 #
-# ====================================================
-# AVAILABLE HTML
+# The recovered locator MUST NOT contain:
+#
+# {value}
+#
 # ====================================================
 #
-# Use ONLY the HTML below.
+# TOP MATCHING DOM ELEMENTS
+#
+# ====================================================
+#
+# The elements below are already ranked by similarity.
+#
+# Recover ONLY using these candidates.
+#
+# If none represents the original element,
+#
+# return ONLY
+#
+# NOT_FOUND
+#
+# ====================================================
 #
 # {html}
 #
 # ====================================================
-# TASK
+# YOUR TASK
 # ====================================================
 #
-# Find the SAME element that the failed locator was
-# trying to identify.
+# Find the REAL HTML element that the broken locator
+# was originally intended to identify.
 #
-# Prefer stable locators.
+# Recover the BEST Selenium locator for that element.
 #
-# Priority:
+# ====================================================
+# LOCATOR PRIORITY
+# ====================================================
 #
 # 1. id
 # 2. name
@@ -68,142 +101,166 @@
 # 6. css
 # 7. xpath
 #
-# Never invent attributes.
+# ====================================================
+# STRICT RULES
+# ====================================================
 #
-# Never guess.
+# 1. The HTML contains the correct element.
 #
-# Never explain.
+# 2. Recover ONLY that element.
 #
-# Never return markdown.
+# 3. Never choose another button.
 #
-# Never return JSON.
+# 4. Never choose another link.
 #
-# Return ONLY ONE locator.
+# 5. Never return a locator for a different action.
 #
-# Examples
+# 6. If an id exists, always return the id.
+#
+# 7. Otherwise use data-qa.
+#
+# 8. Otherwise use name.
+#
+# 9. Only use CSS when none of the above exist.
+#
+# 10.Return exactly ONE locator.
+#
+# 11.Ignore the broken locator completely.
+#
+# 12. Never return the same locator value.
+#
+# 13. Never rewrite the broken locator.
+#
+# 14. Never convert the broken locator to CSS/XPath.
+#
+# 15. Never invent attributes.
+#
+# 16. Use ONLY attributes present in the HTML.
+#
+# 17. Prefer unique stable attributes.
+#
+# 18. Return EXACTLY ONE locator.
+#
+# 19. No explanation.
+#
+# 20. No markdown.
+#
+# 21. No JSON.
+#
+# 22. No code block.
+#
+# 23.If the element has BOTH an id and data-qa,always prefer id.
+#
+# ====================================================
+# OUTPUT FORMAT
+# ====================================================
+#
+# Return ONLY one line.
+#
+# Examples:
 #
 # id=submit
 #
-# name=pay-button
+# name=checkout
 #
-# css=#submit
+# css=button.btn.btn-primary.submit-button
 #
 # xpath=//button[@id='submit']
 # """
-
-"""
-Enterprise Prompt Builder
-
-Builds deterministic prompts for Ollama/Llama.
-
-Goal:
-Return ONLY one Selenium locator.
-"""
-
+#
+#         if not prompt.strip():
+#             raise RuntimeError("Generated prompt is empty")
+#
+#         return prompt
 
 class PromptBuilder:
 
     @staticmethod
     def build_locator_prompt(
+
             locator,
+
             page_title,
+
             page_url,
+
             html
+
     ):
 
-        by, value = locator
+        return f"""
+You are an expert Selenium automation engineer.
 
-        prompt = f"""
-You are a Selenium Locator Recovery Engine.
+Broken locator
 
-Your ONLY job is to recover ONE broken Selenium locator.
+{locator}
 
-====================================================
-PAGE INFORMATION
-====================================================
+Page title
 
-Title:
 {page_title}
 
-URL:
+URL
+
 {page_url}
 
-====================================================
-FAILED LOCATOR
-====================================================
-
-{by}={value}
-
-====================================================
-AVAILABLE HTML
-====================================================
-
-Use ONLY the HTML below.
+Relevant DOM
 
 {html}
 
-====================================================
-RULES
-====================================================
+Your task:
 
-1. Find the SAME element the failed locator refers to.
+Find the BEST locator for the SAME element.
 
-2. Use ONLY attributes present in the supplied HTML.
+Priority:
 
-3. NEVER invent attributes.
+1. id=
+2. name=
+3. css=
+4. xpath=
 
-4. NEVER guess.
+Rules:
 
-5. NEVER explain.
+- Return ONLY ONE locator.
+- Do NOT explain.
+- Do NOT use markdown.
+- Do NOT use bullets.
+- Do NOT return JSON.
+- Output must be exactly one line.
 
-6. NEVER apologize.
-
-7. NEVER output markdown.
-
-8. NEVER output JSON.
-
-9. NEVER output code blocks.
-
-10. Output EXACTLY ONE locator.
-
-====================================================
-Locator priority
-====================================================
-
-1. id
-2. name
-3. data-qa
-4. data-testid
-5. aria-label
-6. css
-7. xpath
-
-====================================================
-VALID OUTPUT EXAMPLES
-====================================================
+Examples
 
 id=submit
 
-name=pay-button
+name=email
 
-css=#submit
+css=.submit-button
 
 xpath=//button[@id='submit']
 
-====================================================
-INVALID OUTPUT EXAMPLES
-====================================================
+=================================================
 
-The correct locator is id=submit
+IMPORTANT
 
-I recommend id=submit
+Return ONLY ONE locator.
 
-Here is the locator:
+Allowed format
 
 id=submit
 
-Thank you.
+name=username
+
+css=.submit-button
+
+xpath=//button[@id='submit']
+
+Do NOT explain.
+
+Do NOT repeat the broken locator.
+
+Do NOT write markdown.
+
+Do NOT write paragraphs.
+
+Output MUST contain ONLY ONE locator.
+
 """
-        print("Prompt length =", len(prompt))
-        print(prompt[:500])
-        return prompt

@@ -4,45 +4,74 @@ Enterprise Ollama Provider
 Responsibilities
 ----------------
 ✔ Extract DOM
-✔ Build AI prompt
-✔ Call Ollama
-✔ Normalize response
+✔ Build Prompt
+✔ Query Ollama
+✔ Parse response
 ✔ Validate locator
-✔ Return structured recovery result
+✔ Validate semantic similarity
+✔ Update repository
+✔ Return standardized recovery result
 """
 
 from __future__ import annotations
-from utils.ai.ai_logger import AILogger
+from utils.ai.ai_session import AISession
 import re
 import traceback
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+
 from utils.ai.dom_extractor import DOMExtractor
-from utils.ai.ollama_client import OllamaClient
 from utils.ai.prompt_builder import PromptBuilder
+from utils.ai.ollama_client import OllamaClient
+
+from utils.healing.repository_updater import RepositoryUpdater
+from utils.healing.recovery_validator import RecoveryValidator
 
 
 class OllamaProvider:
 
     PROVIDER_NAME = "Ollama"
 
-    # ---------------------------------------------
+    # -----------------------------------------------------
 
-    def suggest_locators(self, failed_locator, driver):
-        print("STEP-1")
+    def suggest_locators(
+            self,
+            failed_locator,
+            driver
+    ):
 
         try:
-            print("STEP-2")
 
             page_title = driver.title
             page_url = driver.current_url
-            print("STEP-3")
 
             html = DOMExtractor.extract(
                 driver,
                 failed_locator
             )
-            print("STEP-4")
+
+            from utils.ai.candidate_ranker import CandidateRanker
+
+            html = CandidateRanker.rank(
+                html,
+                failed_locator
+            )
+
+            # print("=" * 80)
+            # print("DOM SENT TO OLLAMA")
+            # print("=" * 80)
+            # print(html)
+            # print("=" * 80)
+
+            print("\n")
+            print("=" * 100)
+            print("TOP CANDIDATE DOM SENT TO OLLAMA")
+            print("=" * 100)
+            print(html)
+            print("=" * 100)
 
             prompt = PromptBuilder.build_locator_prompt(
                 locator=failed_locator,
@@ -51,216 +80,526 @@ class OllamaProvider:
                 html=html
             )
 
-            print("PROMPT TYPE =", type(prompt))
-            print("PROMPT IS NONE =", prompt is None)
+            print("\n" + "=" * 80)
+            print("PROMPT SENT TO OLLAMA")
+            print("=" * 80)
+            print(prompt)
+            print("=" * 80)
 
-            AILogger.write(
-                "PROMPT",
-                prompt
+            print("\n==============================")
+            print("Sending Prompt To Ollama")
+            print("==============================")
+
+            result = OllamaClient.generate(prompt)
+
+            print("\n" + "=" * 80)
+            print("RAW OLLAMA RESULT")
+            print("=" * 80)
+            print(result)
+            print("=" * 80)
+
+            print("\n==============================")
+            print("OLLAMA RESPONSE")
+            print("==============================")
+            print(result.get("response"))
+            print("==============================\n")
+
+            AISession.save(
+                prompt,
+                result.get("response", "")
             )
-            print("STEP-5")
-
-            MAX_AI_ATTEMPTS = 3
-
-            result = None
-
-            for attempt in range(MAX_AI_ATTEMPTS):
-
-                print(f"\nAI Attempt {attempt + 1}")
-
-                result = OllamaClient.generate(prompt)
-
-                if not result["success"]:
-                    continue
-
-                locator = self._parse_locator(result["response"])
-
-                if locator is None:
-                    continue
-
-                from utils.ai.locator_validator import LocatorValidator
-
-                if LocatorValidator.exists(driver, locator):
-                    print("Validated locator:", locator)
-
-                    return {
-                        "provider": self.PROVIDER_NAME,
-                        "confidence": 95,
-                        "reason": "Recovered by Ollama",
-                        "locators": [locator]
-                    }
-
-                print("AI returned invalid locator:", locator)
-
-                prompt += """
-
-            IMPORTANT
-
-            The locator you suggested DOES NOT EXIST.
-
-            Return ONLY a locator that already exists inside the supplied HTML.
-
-            Never invent ids.
-
-            """
-
-            return None
-
-            AILogger.write(
-                "OLLAMA RAW RESPONSE",
-                result
-            )
-
-            print("STEP-6")
-
-            print("\n========== OLLAMA RAW RESPONSE ==========")
-            print(result["response"])
-            print("=========================================\n")
 
             if not result["success"]:
-
                 return None
 
-            print("\n========== OLLAMA RAW TEXT ==========")
-            print(result["response"])
-            print("=====================================\n")
+            raw_text = result["response"]
 
-            locator = self._parse_locator(
-                result["response"]
-            )
-
-            from utils.ai.locator_validator import LocatorValidator
-
-            if not LocatorValidator.exists(driver, locator):
-                print("\nLLM returned INVALID locator.")
-
-                print(locator)
-
-                return None
+            locator = self._parse_locator(raw_text)
 
             #
-            # Validate against live DOM
+            # AI returned nothing?
             #
-
-            try:
-                driver.find_element(*locator)
-
-                print("Locator validated")
-
-                return {
-                    ...
-                }
-
-            except Exception:
-
-                print("LLM returned invalid locator")
-
-                locator = None
-
-            AILogger.write(
-                "PARSED LOCATOR",
-                locator
-            )
-            with open("ollama_response.txt", "w", encoding="utf-8") as f:
-                f.write(result.get("response", ""))
-
-            print("\n========== PARSED LOCATOR ==========")
-            print(locator)
-            print("====================================\n")
 
             if locator is None:
-
                 return None
 
-            # return {
             #
-            #     "provider": self.PROVIDER_NAME,
+            # AI locator valid?
             #
-            #     "confidence": 95,
+
+            if self._validate_locator(locator, driver):
+                return {
+
+                    "provider": self.PROVIDER_NAME,
+
+                    "confidence": 95,
+
+                    "reason": "Recovered using Ollama",
+
+                    "locators": [locator]
+
+                }
+
             #
-            #     "reason": "Recovered by local Ollama",
+            # AI locator invalid.
+            # Try visible text.
             #
-            #     "locators": [
+
+            button_text = self._extract_button_text(html)
+
+            locator = self._find_by_text(
+
+                driver,
+
+                button_text
+
+            )
+
+            if locator:
+                return {
+
+                    "provider": self.PROVIDER_NAME,
+
+                    "confidence": 90,
+
+                    "reason": "Recovered using visible text",
+
+                    "locators": [locator]
+
+                }
+
+            ###return None
             #
+            # Validate recovered locator exists
+            #
+
+            if not self._validate_locator(
+                        locator,
+                        driver
+                ):
+                print("\nLocator validation failed.")
+                return None
+
+            #
+            # Semantic validation
+            #
+
+            if not RecoveryValidator.validate(
+                        driver,
+                        failed_locator,
+                        locator
+                ):
+                print("\nRecovery rejected by semantic validator.")
+                return None
+
+            #
+            # Learn successful recovery
+            #
+            #
+            # RepositoryUpdater.update(
+            #         failed_locator,
             #         locator
+            #     )
+            # if locator[0] in (
             #
-            #     ]
+            #         By.ID,
             #
-            # }
+            #         By.NAME
+            #
+            # ):
+            #     RepositoryUpdater.update(
+            #         failed_locator,
+            #         locator
+            #     )
+            # print("\nRepository updated successfully.")
+
+            #
+            # Standard response
+            #
+
             return {
-                "provider": self.PROVIDER_NAME,
-                "confidence": 95,
-                "reason": "Recovered by Ollama",
-                "locator": locator
-            }
 
-            recovered_locator = result["locator"]
+                    "provider": self.PROVIDER_NAME,
 
+                    "confidence": 95,
+
+                    "reason": "Recovered using Ollama",
+
+                    "locators": [locator]
+
+                }
 
         except Exception:
 
-            print("\n========== OLLAMA EXCEPTION ==========\n")
+            print("\n========== OLLAMA PROVIDER ERROR ==========\n")
 
-            tb = traceback.format_exc()
+            traceback.print_exc()
 
-            AILogger.write(
-                "EXCEPTION",
-                tb
-            )
-
-            print(tb)
-
-            print("\n======================================\n")
+            print("\n===========================================\n")
 
             return None
 
-    # ---------------------------------------------
+        # -----------------------------------------------------
 
-    from selenium.webdriver.common.by import By
-    import re
+    # def _validate_locator(
+    #         self,
+    #         locator,
+    #         driver
+    # ):
+    #
+    #     try:
+    #
+    #         by, value = locator
+    #
+    #         WebDriverWait(
+    #             driver,
+    #             10
+    #         ).until(
+    #
+    #             EC.presence_of_element_located(
+    #
+    #                 (by, value)
+    #
+    #             )
+    #
+    #         )
+    #
+    #         return True
+    #
+    #     except TimeoutException:
+    #
+    #         print("\nLocator not found within timeout.")
+    #
+    #         return False
+    #
+    #     except Exception as ex:
+    #
+    #         print("\nLocator validation exception:")
+    #
+    #         print(type(ex).__name__)
+    #
+    #         print(ex)
+    #
+    #         return False
+    def _validate_locator(self, locator, driver):
 
-    import re
+        try:
+
+            by, value = locator
+
+            element = driver.find_element(by, value)
+
+            tag = element.tag_name.lower()
+
+            #
+            # Reject icons
+            #
+
+            if tag in ("i", "svg"):
+                print("Rejected icon locator")
+
+                return False
+
+            return True
+
+        except Exception:
+
+            return False
+
+    #
+    #     # -----------------------------------------------------
+
+    # def _parse_locator(
+    #         self,
+    #         text
+    # ):
+    #
+    #     """
+    #     Parses Ollama output into a Selenium locator.
+    #
+    #     Supports outputs like:
+    #
+    #         id=submit
+    #         css=#submit
+    #         xpath=//button[@id='submit']
+    #         name=pay-button
+    #
+    #     AI explanations are ignored.
+    #     """
+    #     if "NOT_FOUND" in text.upper():
+    #         return None
+    #
+    #     if not text:
+    #         return None
+    #
+    #     #
+    #     # Remove markdown fences
+    #     #
+    #
+    #     text = (
+    #         text.replace("```", "")
+    #             .replace("`", "")
+    #             .strip()
+    #     )
+    #
+    #     #
+    #     # Find every locator-looking line.
+    #     # AI usually gives the correct locator first.
+    #     #
+    #
+    #     # matches = re.findall(
+    #     #     r"(id|name|css|xpath)\s*=\s*([^\n\r]+)",
+    #     #     text,
+    #     #     flags=re.IGNORECASE
+    #     # )
+    #
+    #     matches = re.findall(
+    #         r"(id|name|css selecto|xpath|data-qa|data-testid|aria-label)\s*=\s*[\"']?([^\n\r\"']+)",
+    #         text,
+    #         flags=re.IGNORECASE
+    #     )
+    #
+    #     if matches:
+    #
+    #         #
+    #         # Prefer FIRST valid locator
+    #         #
+    #
+    #         by, value = matches[0]
+    #
+    #         value = value.strip()
+    #
+    #         #
+    #         # Remove quotes
+    #         #
+    #
+    #         value = value.strip('"').strip("'")
+    #
+    #         #
+    #         # Remove trailing punctuation
+    #         #
+    #
+    #         value = value.rstrip(".,;:")
+    #         key = by.lower()
+    #
+    #         if key == "data-qa":
+    #             value = f'[data-qa="{value}"]'
+    #
+    #         elif key == "data-testid":
+    #             value = f'[data-testid="{value}"]'
+    #
+    #         elif key == "aria-label":
+    #             value = f'[aria-label="{value}"]'
+    #         #
+    #         # mapping = {
+    #         #
+    #         #     "id": By.ID,
+    #         #
+    #         #     "name": By.NAME,
+    #         #
+    #         #     "css": By.CSS_SELECTOR,
+    #         #
+    #         #     "xpath": By.XPATH
+    #         #
+    #         #}
+    #         mapping = {
+    #
+    #             "id": By.ID,
+    #
+    #             "name": By.NAME,
+    #
+    #             "css": By.CSS_SELECTOR,
+    #
+    #             "css selector": By.CSS_SELECTOR,
+    #
+    #             "xpath": By.XPATH
+    #
+    #         }
+    #
+    #         # locator = (
+    #         #
+    #         #     mapping[by.lower()],
+    #         #
+    #         #     value
+    #         #
+    #         # )
+    #
+    #         locator = (
+    #             mapping[key],
+    #             value
+    #         )
+    #
+    #         print("\nRecovered locator:")
+    #
+    #         print(locator)
+    #
+    #         return locator
+    #
+    #     #
+    #     # Bare XPath
+    #     #
+    #
+    #     text = text.strip()
+    #
+    #     if text.startswith("//"):
+    #
+    #         return (
+    #
+    #             By.XPATH,
+    #
+    #             text
+    #
+    #         )
+    #
+    #     #
+    #     # Bare CSS id
+    #     #
+    #
+    #     if text.startswith("#"):
+    #
+    #         return (
+    #
+    #             By.CSS_SELECTOR,
+    #
+    #             text
+    #
+    #         )
+    #
+    #     #
+    #     # Bare id only
+    #     #
+    #
+    #     if re.fullmatch(
+    #
+    #             r"[A-Za-z_][A-Za-z0-9_\-]*",
+    #
+    #             text
+    #
+    #     ):
+    #
+    #         return (
+    #
+    #             By.ID,
+    #
+    #             text
+    #
+    #         )
+    #
+    #     print("\nUnable to parse locator from AI response.")
+    #
+    #     return None
 
     def _parse_locator(self, text):
 
-        print(text)
+        from selenium.webdriver.common.by import By
+        import re
 
-        text = text.replace("```", "")
-        text = text.replace("`", "")
+        if not text:
+            return None
 
-        lines = [
-            line.strip()
-            for line in text.splitlines()
-            if line.strip()
+        text = (
+            text.replace("```", "")
+            .replace("`", "")
+            .strip()
+        )
+
+        #
+        # Extract ALL locator lines
+        #
+
+        patterns = [
+
+            (By.ID,
+             r"id\s*=\s*([^\n\r]+)"),
+
+            (By.NAME,
+             r"name\s*=\s*([^\n\r]+)"),
+
+            (By.CSS_SELECTOR,
+             r"css\s*=\s*([^\n\r]+)"),
+
+            (By.XPATH,
+             r"xpath\s*=\s*([^\n\r]+)"),
+
         ]
 
-        mapping = {
-            "id": By.ID,
-            "name": By.NAME,
-            "css": By.CSS_SELECTOR,
-            "css selector": By.CSS_SELECTOR,
-            "xpath": By.XPATH
-        }
+        candidates = []
 
-        for line in reversed(lines):
+        for by, pattern in patterns:
 
-            m = re.match(
-                r"^(id|name|css|css selector|xpath)\s*=\s*(.+)$",
-                line,
-                re.I
+            matches = re.findall(
+                pattern,
+                text,
+                flags=re.IGNORECASE
             )
 
-            if not m:
-                continue
+            for m in matches:
+                value = (
+                    m.strip()
+                    .strip("'")
+                    .strip('"')
+                    .rstrip(".,;:")
+                )
 
-            by = m.group(1).lower()
-            value = m.group(2).strip()
+                candidates.append((by, value))
 
-            value = value.strip('"').strip("'")
+        if not candidates:
+            print("\nUnable to parse locator.")
+
+            return None
+
+        #
+        # IMPORTANT
+        #
+        # AI repeats broken locator first.
+        # Recovery locator comes LAST.
+        #
+
+        locator = candidates[-1]
+
+        print("\nRecovered locator:")
+        print(locator)
+
+        return locator
+
+    def _find_by_text(self, driver, text):
+
+        if not text:
+            return None
+
+        xpath = f"//*[normalize-space(text())='{text}']"
+
+        try:
+            driver.find_element(By.XPATH, xpath)
 
             return (
-                mapping[by],
-                value
+                By.XPATH,
+                xpath
             )
 
-        return None
+        except Exception:
+
+            return None
+
+    def _extract_button_text(self, html):
+
+        import re
+
+        m = re.search(
+
+            r">(.*?)<",
+
+            html,
+
+            re.DOTALL
+
+        )
+
+        if not m:
+            return None
+
+        text = m.group(1)
+
+        text = re.sub(r"\s+", " ", text)
+
+        return text.strip()

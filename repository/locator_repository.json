@@ -1,1 +1,17 @@
-[]
+{
+    "id::confirm_payment_button_ai_demo": {
+        "alternatives": [
+            {
+                "locator": [
+                    "id",
+                    "submit"
+                ],
+                "source": "AI",
+                "success": 1,
+                "failure": 0,
+                "confidence": 100.0,
+                "last_used": "2026-07-28 22:34:20"
+            }
+        ]
+    }
+}

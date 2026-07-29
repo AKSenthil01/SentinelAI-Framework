@@ -30,7 +30,7 @@ class LocatorRepository:
     Source Engine
     """
 
-    FILE_PATH = "locator_repository.json"
+    FILE_PATH = r"repository\locator_repository.json"
 
     repository = {}
 
@@ -67,21 +67,6 @@ class LocatorRepository:
 
     # ---------------------------------------------------------
 
- #   @classmethod
-    # def save_repository(cls):
-    #
-    #     with open(cls.FILE_PATH, "w", encoding="utf-8") as f:
-    #
-    #         json.dump(
-    #
-    #             cls.repository,
-    #
-    #             f,
-    #
-    #             indent=4
-    #
-    #         )
-#    @classmethod
     @classmethod
     def save_repository(cls):
 
@@ -153,30 +138,6 @@ class LocatorRepository:
 
         print("9")
 
-        # alternatives.append({
-        #
-        #     "locator": locator,
-        #
-        #     "source": source,
-        #
-        #     "success": 0,
-        #
-        #     "failure": 0,
-        #
-        #     "confidence": 0,
-        #
-        #     "last_used": None
-        #
-        # })
-        #
-        # print("10")
-        #
-        # cls.save_repository()
-        #
-        # print("11")
-        # print("\n========== Repository Updated ==========")
-        # print(json.dumps(cls.repository, indent=4))
-        # print("========================================\n")
         try:
             alternatives.append(
                 {

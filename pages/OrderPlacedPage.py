@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 
 from pages.BasePage import BasePage
 from constants.ui_constants import Titles
+from selenium.webdriver.support import expected_conditions as EC
 
 class OrderPlacedPage(BasePage):
     txt_orderPlaced_xpath = (By.XPATH,"//b[text()='Order Placed!']")
@@ -46,13 +47,23 @@ class OrderPlacedPage(BasePage):
         path = os.path.join(os.getcwd(), "downloads", file_name)
         return os.path.exists(path)
 
-
     def clickContinue(self):
-        try:
-            #self.click_and_bypass(self.btn_continue_xpath, "automationexercise.com")
-            self.click_and_bypass(self.btn_continue_xpath)
-        except Exception as e:
-            print(f"Element not found : {e}")
+
+        self.wait.until(
+
+            EC.element_to_be_clickable(
+
+                self.btn_continue_xpath
+
+            )
+
+        )
+
+        self.click_and_bypass(
+
+            self.btn_continue_xpath
+
+        )
 
     def verify_order_success(self):
 

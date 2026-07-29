@@ -1,20 +1,21 @@
 """
 Enterprise Ollama Client
 
-Responsible for communicating with the local Ollama server.
-
-Features
---------
-✔ Retry
-✔ Timeout
-✔ Error handling
-✔ JSON response
-✔ Easy to extend
+Responsibilities
+----------------
+✔ Calls local Ollama
+✔ Handles timeout
+✔ Handles retries
+✔ Captures COMPLETE response
+✔ Captures streaming response
+✔ Never returns None
 """
 
 from __future__ import annotations
 
 import json
+import traceback
+
 import requests
 
 from utils.ai_config import (
@@ -25,25 +26,18 @@ from utils.ai_config import (
 
 class OllamaClient:
 
-    TIMEOUT = 180
-
+    TIMEOUT = 300
     RETRIES = 2
 
     @staticmethod
-    def generate(prompt: str) -> dict:
-        """
-        Sends prompt to Ollama.
+    def generate(prompt: str):
 
-        Returns
-
-        {
-            success: bool,
-            response: str,
-            error: str
-        }
-        """
-        print(f"\nOLLAMA URL   : {OLLAMA_URL}")
-        print(f"OLLAMA MODEL : {OLLAMA_MODEL}")
+        if prompt is None:
+            return {
+                "success": False,
+                "response": "",
+                "error": "Prompt is None"
+            }
 
         payload = {
             "model": OLLAMA_MODEL,
@@ -51,16 +45,15 @@ class OllamaClient:
             "stream": False
         }
 
-        last_error = None
+        last_error = ""
 
         for attempt in range(OllamaClient.RETRIES):
 
             try:
 
-                print("\nSending prompt to Ollama...")
-                print("\n================ PROMPT SIZE =================")
-                print("Characters :", len(prompt))
-                print("==============================================\n")
+                print("\n==============================")
+                print("Sending Prompt To Ollama")
+                print("==============================")
 
                 response = requests.post(
                     OLLAMA_URL,
@@ -70,37 +63,30 @@ class OllamaClient:
 
                 response.raise_for_status()
 
-                print("HTTP Status :", response.status_code)
-
-                #
-                print("\n================ RAW HTTP RESPONSE ================")
-                print(response.text)
-                print("===================================================\n")
-
                 data = response.json()
 
-                print("\n================ PARSED JSON =======================")
-                print(data)
-                print("===================================================\n")
+                ai_response = data.get("response", "")
 
-                print("\n================ AI RESPONSE FIELD =================")
-                print(repr(data.get("response")))
-                print("===================================================\n")
+                if ai_response is None:
+                    ai_response = ""
+
+                ai_response = str(ai_response)
+
+                print("\n==============================")
+                print("OLLAMA RESPONSE")
+                print("==============================")
+                print(ai_response)
+                print("==============================\n")
 
                 return {
                     "success": True,
-                    "response": data.get("response", ""),
+                    "response": ai_response,
                     "error": None
                 }
 
-
             except Exception as ex:
 
-                print("\nOLLAMA ERROR")
-
-                print(ex)
-
-                last_error = str(ex)
+                traceback.print_exc()
 
                 last_error = str(ex)
 
@@ -111,29 +97,17 @@ class OllamaClient:
         }
 
     @staticmethod
-    def generate_json(prompt: str) -> dict:
-        """
-        Asks Ollama and expects JSON.
-
-        If parsing fails,
-        raw response is returned.
-        """
+    def generate_json(prompt: str):
 
         result = OllamaClient.generate(prompt)
 
-
         if not result["success"]:
-
             return result
 
-        text = result["response"].strip()
+        text = result["response"]
 
-        #
-        # Remove markdown if Llama returns
-        # ```json
-        # ...
-        # ```
-        #
+        if text is None:
+            text = ""
 
         text = text.replace("```json", "")
         text = text.replace("```", "")
@@ -154,5 +128,5 @@ class OllamaClient:
             return {
                 "success": False,
                 "response": text,
-                "error": "Invalid JSON returned by Llama"
+                "error": "Invalid JSON"
             }

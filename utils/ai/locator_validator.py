@@ -1,30 +1,102 @@
+# from selenium.webdriver.common.by import By
+#
+#
+# class LocatorValidator:
+#
+#     MAP = {
+#         "id": By.ID,
+#         "name": By.NAME,
+#         "css selector": By.CSS_SELECTOR,
+#         "xpath": By.XPATH
+#     }
+#
+#     @staticmethod
+#     def exists(driver, locator):
+#
+#         if locator is None:
+#             return False
+#
+#         by, value = locator
+#
+#         selenium_by = LocatorValidator.MAP.get(by)
+#
+#         if selenium_by is None:
+#             return False
+#
+#         try:
+#             return len(driver.find_elements(selenium_by, value)) > 0
+#
+#         except Exception:
+#             return False
+"""
+Enterprise Locator Validator
+
+Responsibilities
+----------------
+✔ Validate AI generated locator
+✔ Reject hallucinated locators
+✔ Reject invalid locator syntax
+✔ Ensure locator exists on page
+"""
+
+from __future__ import annotations
+
 from selenium.webdriver.common.by import By
 
 
 class LocatorValidator:
 
-    MAP = {
+    BY_MAPPING = {
         "id": By.ID,
         "name": By.NAME,
         "css selector": By.CSS_SELECTOR,
-        "xpath": By.XPATH
+        "xpath": By.XPATH,
     }
 
     @staticmethod
-    def exists(driver, locator):
+    def validate(driver, locator):
 
         if locator is None:
-            return False
+            return None
+
+        if len(locator) != 2:
+            return None
 
         by, value = locator
 
-        selenium_by = LocatorValidator.MAP.get(by)
+        if by not in LocatorValidator.BY_MAPPING:
+            return None
 
-        if selenium_by is None:
-            return False
+        selenium_by = LocatorValidator.BY_MAPPING[by]
 
         try:
-            return len(driver.find_elements(selenium_by, value)) > 0
+
+            elements = driver.find_elements(
+                selenium_by,
+                value
+            )
+
+            if len(elements) == 0:
+
+                print()
+
+                print("======================================")
+                print("AI locator rejected")
+                print(locator)
+                print("Reason : Element not found")
+                print("======================================")
+
+                return None
+
+            print()
+
+            print("======================================")
+            print("Validated locator")
+            print(locator)
+            print("======================================")
+
+            return locator
 
         except Exception:
-            return False
+
+            return None

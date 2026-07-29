@@ -115,64 +115,71 @@ def reg_password():
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    """
-    Extends the Pytest-HTML report to include screenshots on failure.
-    """
+
     outcome = yield
     report = outcome.get_result()
-    extra = getattr(report, 'extra', [])
 
-    if report.when == 'call' or report.when == "setup":
-        xfail = hasattr(report, 'wasxfail')
-        if (report.failed or xfail):
-            # 1. Get the driver instance from the test item
+    extra = getattr(report, "extra", [])
+
+    if report.when in ("setup", "call"):
+
+        xfail = hasattr(report, "wasxfail")
+
+        if report.failed or xfail:
+
             driver = item.funcargs.get("driver")
 
-            # 2. Define screenshot name and path
-            file_name = f"Screenshot_{datetime.now().strftime('%d-%m-%Y_%H-%M-%S')}.png"
-            reports_dir = os.path.join(os.getcwd(), "reports", "screenshots")
-            if not os.path.exists(reports_dir):
-                os.makedirs(reports_dir)
-
-            file_path = os.path.join(reports_dir, file_name)
-
-            # 3. Capture the screenshot
-            # driver.save_screenshot(file_path)
             if driver:
+
+                reports_dir = os.path.join(
+                    os.getcwd(),
+                    "reports",
+                    "screenshots"
+                )
+
+                os.makedirs(reports_dir, exist_ok=True)
+
+                file_name = (
+                    f"Screenshot_"
+                    f"{datetime.now().strftime('%d-%m-%Y_%H-%M-%S')}.png"
+                )
+
+                file_path = os.path.join(
+                    reports_dir,
+                    file_name
+                )
+
                 driver.save_screenshot(file_path)
 
-                allure.attach.file(
+                #
+                # Attach to Allure
+                #
 
-                    file_path,
+                if os.path.exists(file_path):
 
-                    name="Failure Screenshot",
+                    allure.attach.file(
+                        file_path,
+                        name="Failure Screenshot",
+                        attachment_type=allure.attachment_type.PNG
+                    )
 
-                    attachment_type=allure.attachment_type.PNG
+                    #
+                    # Attach to HTML Report
+                    #
 
-                )
+                    html = (
+                        f'<div>'
+                        f'<img src="screenshots/{file_name}" '
+                        f'style="width:304px;height:228px;" '
+                        f'onclick="window.open(this.src)"/>'
+                        f'</div>'
+                    )
 
-                html = (
-                        '<div><img src="screenshots/%s" '
-                        'style="width:304px;height:228px;" '
-                        'onclick="window.open(this.src)"/></div>'
-                        % file_name
-                )
+                    extra.append(
+                        pytest_html.extras.html(html)
+                    )
 
-                extra.append(pytest_html.extras.html(html))
-
-            allure.attach.file(
-                file_path,
-                name="Failure Screenshot",
-                attachment_type=allure.attachment_type.PNG
-            )
-
-            # 4. Attach to HTML report
-            if file_path:
-                html = '<div><img src="screenshots/%s" alt="screenshot" style="width:304px;height:228px;" ' \
-                       'onclick="window.open(this.src)" align="right"/></div>' % file_name
-                extra.append(pytest_html.extras.html(html))
-        report.extra = extra
-
+    report.extra = extra
 
 def pytest_addoption(parser):
     # This tells pytest how to read the custom line from pytest.ini

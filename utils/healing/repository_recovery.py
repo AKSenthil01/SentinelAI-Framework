@@ -7,12 +7,14 @@ has already been healed in previous executions.
 
 import time
 
-from selenium.common.exceptions import TimeoutException
+
+
 
 from utils.healing.healing_base import HealingBase
 from utils.healing.console_logger import ConsoleLogger
 from utils.healing_logger import HealingLogger
 from utils.locator_repository import LocatorRepository
+from selenium.common.exceptions import TimeoutException
 
 
 class RepositoryRecovery(HealingBase):

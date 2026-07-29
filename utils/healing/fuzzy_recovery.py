@@ -63,7 +63,9 @@ class FuzzyRecovery(HealingBase):
 
                 ("data-qa", element.get_attribute("data-qa")),
 
-                ("aria-label", element.get_attribute("aria-label"))
+                ("aria-label", element.get_attribute("aria-label")),
+
+                ("text", element.text)
 
             ]
 
@@ -71,6 +73,11 @@ class FuzzyRecovery(HealingBase):
 
                 if not candidate:
 
+                    continue
+
+                candidate = candidate.strip()
+
+                if not candidate:
                     continue
 
                 ratio = SequenceMatcher(
@@ -130,6 +137,18 @@ class FuzzyRecovery(HealingBase):
                 candidate
 
             )
+
+
+        elif attr == "text":
+
+            recovered = (
+
+                By.XPATH,
+
+                f"//*[normalize-space()='{candidate.strip()}']"
+
+            )
+
 
         else:
 
