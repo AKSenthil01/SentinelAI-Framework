@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from utils.healing.click_helper import ClickHelper
+from utils.click_helper import ClickHelper
 from pages.BasePage import BasePage
 from constants.ui_constants import Titles
 from utils.self_healing import SelfHealing
