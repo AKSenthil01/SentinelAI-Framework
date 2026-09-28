@@ -1,769 +1,701 @@
 # SentinelAI Framework
 
-Enterprise AI-Powered Self-Healing Test Automation Framework
+AI-Assisted Selenium Self-Healing Test Automation Framework
 
-An enterprise-grade Selenium automation framework built with Python, PyTest, Page Object Model (POM), AI-powered Self-Healing using Ollama LLM, Allure Reporting, and automatic locator repository learning.
+SentinelAI is a Python-based Selenium and PyTest automation framework that demonstrates layered self-healing for broken UI locators.
 
----
+When a locator becomes invalid, the framework attempts recovery in the following order:
 
-# Project Overview
+1. **Repository Recovery**
+2. **Strategy Recovery**
+3. **Fuzzy Recovery**
+4. **AI Recovery using a local Ollama LLM**
 
-This framework demonstrates how traditional Selenium automation can be enhanced using AI-assisted locator recovery.
-
-Instead of failing immediately when a locator changes, the framework attempts multiple recovery strategies before failing:
-
-1. Repository Recovery
-2. Strategy Recovery
-3. Fuzzy Matching
-4. AI Recovery (Local Ollama LLM)
-
-Successful recoveries are automatically learned and stored inside the locator repository for future executions.
+The AI recovery layer is used as the final recovery mechanism after the deterministic recovery strategies cannot recover the element.
 
 ---
 
-# Key Features
+## Project Overview
 
-- Python + Selenium + PyTest
-- Page Object Model (POM)
-- AI Self-Healing using Ollama
-- Local LLM (No OpenAI API required)
-- Automatic Locator Repository
-- Multi-layer Recovery Strategy
-- Healing Dashboard
-- Allure Reporting
-- Screenshot Capture
-- Prompt & AI Response Capture
-- Recovery Statistics
-- Automatic Repository Learning
-- HTML Healing Dashboard
-- JSON Healing Logs
-- Extensible Architecture
+The framework combines:
+
+* Python
+* Selenium WebDriver
+* PyTest
+* Page Object Model
+* Layered self-healing
+* Local Ollama LLM integration
+* Locator repository persistence
+* Healing logs
+* HTML healing dashboard
+* PyTest HTML reporting
+* Allure reporting
+
+The primary purpose of the project is to demonstrate how AI-assisted recovery can be integrated into a conventional Selenium automation framework without replacing deterministic automation strategies.
+
 
 ---
+## Demo
 
+### AI Self-Healing Execution
+
+![AI Self-Healing Test Execution](docs/screenshots/ai-self-healing-test.png)
+
+### Healing Dashboard
+
+![SentinelAI Healing Dashboard](docs/screenshots/healing-dashboard.png)
+
+### Self-Healing Architecture
+
+![SentinelAI Architecture](docs/screenshots/self-healing-architecture.png)
+
+---
 # Architecture
 
-# 🏛 Enterprise Layered Architecture
-
-The framework follows a clean layered architecture that separates business logic, automation logic, AI recovery, infrastructure, and reporting.
-
-```mermaid
-flowchart TD
-
-A[Test Cases<br/>PyTest]
-
-B[Page Object Layer]
-
-C[Selenium Wrapper]
-
-D[Self-Healing Orchestrator]
-
-E1[Repository Recovery]
-
-E2[Strategy Recovery]
-
-E3[Fuzzy Recovery]
-
-E4[AI Recovery]
-
-F[DOM Extraction]
-
-G[Candidate Ranking]
-
-H[Prompt Builder]
-
-I[Ollama LLM]
-
-J[Locator Suggestion]
-
-K[Semantic Validation]
-
-L[Locator Repository]
-
-M[Reports & Dashboard]
-
-A --> B
-B --> C
-C --> D
-
-D --> E1
-D --> E2
-D --> E3
-D --> E4
-
-E4 --> F
-F --> G
-G --> H
-H --> I
-I --> J
-J --> K
-K --> L
-L --> M
+```text
+PyTest Test
+     │
+     ▼
+Page Object
+     │
+     ▼
+BasePage / Selenium interaction
+     │
+     ▼
+Self-Healing Orchestrator
+     │
+     ├── Repository Recovery
+     │
+     ├── Strategy Recovery
+     │
+     ├── Fuzzy Recovery
+     │
+     └── AI Recovery
+             │
+             ▼
+       AIAdvisorFactory
+             │
+             ▼
+       OllamaProvider
+             │
+             ▼
+        DOMExtractor
+             │
+             ▼
+       CandidateRanker
+             │
+             ▼
+        PromptBuilder
+             │
+             ▼
+        OllamaClient
+             │
+             ▼
+      Locator Suggestion
+             │
+             ▼
+       Locator Validation
+             │
+             ▼
+      Semantic Validation
+             │
+             ▼
+      Locator Repository
 ```
 
-## Layer Responsibilities
+## Recovery Strategy
 
-| Layer | Responsibility |
-|--------|----------------|
-| Test Layer | Business test scenarios implemented using PyTest |
-| Page Object Layer | Encapsulates page-specific business operations |
-| Selenium Wrapper | Common Selenium utilities, waits, and driver interactions |
-| Self-Healing Orchestrator | Coordinates recovery engines sequentially |
-| Repository Recovery | Uses previously learned locators |
-| Strategy Recovery | Applies predefined locator transformation rules |
-| Fuzzy Recovery | Finds similar elements using heuristic matching |
-| AI Recovery | Uses Ollama LLM to suggest replacement locators |
-| Validation Layer | Verifies AI-generated locators before use |
-| Repository Layer | Automatically stores successful recoveries |
-| Reporting Layer | Generates Allure reports, healing logs, and dashboards |
+The framework intentionally places AI recovery after deterministic mechanisms.
 
-## Architecture Highlights
-
-- Layered Enterprise Design
-- Separation of Concerns
-- Plug-and-Play Recovery Engines
-- AI as Last Recovery Option
-- Automatic Repository Learning
-- Modular and Extensible Framework# 📦 Technology Stack
-
-| Technology | Purpose |
-|------------|----------|
-| Python | Programming Language |
-| Selenium | UI Automation |
-| PyTest | Test Framework |
-| Allure | Reporting |
-| Ollama | Local AI Model |
-| Llama 3.1 | AI Locator Recovery |
-| JSON | Locator Repository |
-| HTML | Healing Dashboard |
-| Git | Version Control |
-| Page Object Model | Framework Design |
-
-# 🚀 Features
-
-This framework provides enterprise-grade automation capabilities with built-in self-healing intelligence.
-
-## UI Automation
-
-- Selenium WebDriver
-- Page Object Model (POM)
-- Explicit Waits
-- Centralized Locator Management
-- Custom Logger
-- Data Driven Testing
-- PyTest Framework
-- Cross-browser support
-- Screenshot capture
-- Allure Reporting
-
----
-
-## Self-Healing Engine
-
-The framework automatically recovers from broken locators without changing test scripts.
-
-Recovery Pipeline
-
-1. Repository Recovery
-2. Strategy Recovery
-3. Fuzzy Matching Recovery
-4. AI Recovery (Ollama LLM)
-
-If one recovery engine fails, the framework automatically proceeds to the next engine.
-
----
-
-## AI Powered Recovery
-
-The AI engine uses a locally running Ollama Large Language Model.
-
-Workflow
-
+```text
 Broken Locator
-        ↓
+      │
+      ▼
+Repository Recovery
+      │
+      ├── success ──► Continue Test
+      │
+      ▼
+Strategy Recovery
+      │
+      ├── success ──► Continue Test
+      │
+      ▼
+Fuzzy Recovery
+      │
+      ├── success ──► Continue Test
+      │
+      ▼
+AI Recovery
+      │
+      ▼
+Validate Recovered Locator
+      │
+      ├── valid ──► Continue Test
+      │
+      └── invalid ──► Recovery Failure
+```
+
+This design keeps the faster and deterministic recovery mechanisms ahead of the LLM-based mechanism.
+
+---
+
+# Self-Healing Components
+
+## 1. Repository Recovery
+
+The repository recovery mechanism checks the persisted locator knowledge before invoking other recovery mechanisms.
+
+The repository is stored in:
+
+```text
+repository/
+└── locator_repository.json
+```
+
+A successfully recovered locator can be persisted for subsequent executions.
+
+The repository stores information such as:
+
+* Original locator
+* Alternative locator
+* Recovery source
+* Success count
+* Failure count
+* Confidence
+* Last-used information
+
+---
+
+## 2. Strategy Recovery
+
+Strategy recovery applies predefined locator transformation rules.
+
+Examples include alternative locator strategies based on:
+
+* ID
+* Name
+* CSS
+* XPath
+* Other known page attributes
+
+This layer does not require an LLM.
+
+---
+
+## 3. Fuzzy Recovery
+
+Fuzzy recovery attempts to identify a suitable element by comparing characteristics of the available DOM elements.
+
+The recovery process can consider information such as:
+
+* Element attributes
+* Tag names
+* Visible text
+* DOM similarity
+* Element relationships
+
+---
+
+## 4. AI Recovery
+
+AI recovery is the final recovery layer.
+
+The active implementation uses a locally hosted **Ollama** model.
+
+The AI recovery flow is:
+
+```text
+Broken Locator
+      │
+      ▼
 DOM Extraction
-        ↓
+      │
+      ▼
 Candidate Ranking
-        ↓
-Prompt Generation
-        ↓
-Ollama
-        ↓
-AI Locator Suggestion
-        ↓
+      │
+      ▼
+Prompt Construction
+      │
+      ▼
+Ollama LLM
+      │
+      ▼
+Locator Suggestion
+      │
+      ▼
 Locator Validation
-        ↓
+      │
+      ▼
 Semantic Validation
-        ↓
+      │
+      ▼
+Persist Successful Locator
+```
+
+The framework therefore does not blindly accept an LLM-generated locator.
+
+The proposed locator is validated before it is used by the test.
+
+---
+
+# AI Recovery Implementation
+
+The current AI recovery path includes:
+
+```text
+AIRecovery
+    │
+    ▼
+AIAdvisorFactory
+    │
+    ▼
+OllamaProvider
+    │
+    ├── DOMExtractor
+    ├── CandidateRanker
+    ├── PromptBuilder
+    └── OllamaClient
+```
+
+The Ollama configuration is maintained in:
+
+```text
+utils/ai_config.py
+```
+
+The configuration supports the local Ollama endpoint and model configuration.
+
+The current default model configuration is:
+
+```text
+llama3:8b
+```
+
+The framework therefore does not depend on OpenAI API access for its AI recovery implementation.
+
+---
+
+# Deterministic AI Self-Healing Demonstration
+
+The project contains two important self-healing demonstrations.
+
+## `test_self_healing.py`
+
+This test demonstrates the deterministic recovery mechanisms:
+
+```text
+Repository
+     ↓
+Strategy
+     ↓
+Fuzzy
+```
+
+It is designed to demonstrate the first three recovery layers and does not intentionally force execution into AI recovery.
+
+---
+
+## `test_ai_self_healing.py`
+
+This test specifically demonstrates the final AI recovery layer.
+
+Before execution, the test clears the persisted locator repository:
+
+```python
+LocatorRepository.clear_repository()
+```
+
+This prevents previously learned locators from allowing Repository Recovery to succeed before the AI demonstration.
+
+The test then deliberately causes the earlier deterministic recovery mechanisms to fail so that execution reaches:
+
+```text
+AI Recovery
+```
+
+This makes the AI self-healing demonstration independent of locator state left by previous executions.
+
+### Latest targeted validation
+
+```text
+1 passed
+0 warnings
+```
+
+The execution also generated:
+
+```text
+reports/healing_log.json
+reports/healing_dashboard.html
+reports/report.html
+```
+
+The healing log reported one healing event during the targeted AI self-healing execution.
+
+---
+
+# Locator Repository Learning
+
+Successful recovered locators can be persisted in:
+
+```text
+repository/locator_repository.json
+```
+
+The general lifecycle is:
+
+```text
+Broken Locator
+      ↓
+Recovery
+      ↓
+Locator Validation
+      ↓
+Successful Recovery
+      ↓
 Repository Update
-        ↓
-Test Continues
+      ↓
+Future Repository Recovery
+```
+
+This allows successful recovery information to be reused by subsequent executions.
+
+The repository is therefore part of the framework's runtime learning mechanism.
 
 ---
 
-## Automatic Learning
+# Reporting and Observability
 
-Whenever AI successfully heals a locator,
+The framework generates several execution artifacts.
 
-- locator_repository.json is updated automatically
-- Future executions use Repository Recovery first
-- AI is called only when required
+## PyTest HTML Report
 
-This creates a continuously improving automation framework.
+```text
+reports/report.html
+```
 
----
+## Healing Log
+
+```text
+reports/healing_log.json
+```
 
 ## Healing Dashboard
 
-Every recovery event is captured.
-
-The framework automatically generates
-
-- Healing Log
-- Healing Dashboard (HTML)
-- Locator Repository
-- AI Prompt
-- AI Response
-
-These artifacts are attached to the Allure Report after execution.
-
----
-
-## Logging
-
-The framework provides multiple logging layers.
-
-- Console Logger
-- Custom Logger
-- Healing Logger
-- AI Prompt Logging
-- AI Response Logging
-
-This makes debugging simple and transparent.
-
----
-
-## Reports
-
-The framework generates
-
-- PyTest HTML Report
-- Allure Report
-- Healing Dashboard
-- Healing Log
-- Screenshots
-- AI Prompt
-- AI Response
-
----
-
-## Design Principles
-
-The framework follows
-
-- SOLID Principles
-- Separation of Concerns
-- Page Object Model
-- Factory Pattern
-- Strategy Pattern
-- Repository Pattern
-- Enterprise Folder Structure
-- Plug-and-Play Recovery Engines
-
-# 📂 Project Structure
-
+```text
+reports/healing_dashboard.html
 ```
-Enterprise-SelfHealing-Framework/
+
+The healing dashboard provides visibility into recorded recovery events.
+
+Allure results are generated in:
+
+```text
+allure-results/
+```
+
+Generated reports and runtime artifacts are not intended to be committed as source files.
+
+---
+
+# Project Structure
+
+The current project is organized around the following components:
+
+```text
+SentinelAI-Framework/
+│
+├── config/
+│   ├── config.ini
+│   └── __init__.py
 │
 ├── core/
 │   ├── config.py
-│   ├── driver_factory.py
-│   ├── selenium_wrapper.py
-│   └── base_page.py
+│   └── __init__.py
+│
+├── constants/
+│   ├── ui_constants.py
+│   └── __init__.py
 │
 ├── pages/
+│   ├── BasePage.py
 │   ├── HomePage.py
 │   ├── SignUpPage.py
-│   ├── ProductPage.py
-│   ├── CheckoutPage.py
+│   ├── AccountRegistrationPage.py
+│   ├── AccountCreatedPage.py
+│   ├── AllProductsPage.py
+│   ├── ShopingCartPage.py
+│   ├── CheckOutPage.py
 │   ├── PaymentPage.py
 │   ├── PaymentPageAIDemo.py
-│   └── ...
-│
-├── tests/
-│   ├── ui/
-│   │   ├── test_login.py
-│   │   ├── test_checkout.py
-│   │   ├── test_ai_self_healing.py
-│   │   └── ...
-│   │
-│   └── api/
+│   └── OrderPlacedPage.py
 │
 ├── repository/
 │   └── locator_repository.json
 │
-├── reports/
-│   ├── healing_dashboard.html
-│   ├── healing_log.json
-│   ├── report.html
-│   └── screenshots/
+├── tests/
+│   ├── hybrid/
+│   │   └── test_hybrid_order_flow.py
+│   │
+│   └── ui/
+│       ├── test_ai_self_healing.py
+│       ├── test_delete_login.py
+│       ├── test_login.py
+│       ├── test_order_confirm.py
+│       ├── test_register.py
+│       └── test_self_healing.py
+│
+├── test_data/
 │
 ├── utils/
-│   │
 │   ├── ai/
 │   │   ├── ai_factory.py
 │   │   ├── ai_session.py
+│   │   ├── ai_provider.py
+│   │   ├── ai_response_parser.py
+│   │   ├── ai_response_validator.py
 │   │   ├── candidate_ranker.py
+│   │   ├── confidence_score.py
 │   │   ├── dom_extractor.py
+│   │   ├── dom_matcher.py
+│   │   ├── dom_similarity.py
+│   │   ├── locator_ranker.py
+│   │   ├── locator_validator.py
 │   │   ├── ollama_client.py
 │   │   ├── ollama_provider.py
-│   │   ├── prompt_builder.py
-│   │   └── ...
+│   │   └── prompt_builder.py
 │   │
 │   ├── healing/
-│   │   ├── healing_base.py
-│   │   ├── repository_recovery.py
-│   │   ├── strategy_recovery.py
-│   │   ├── fuzzy_recovery.py
 │   │   ├── ai_recovery.py
+│   │   ├── fuzzy_recovery.py
+│   │   ├── healing_base.py
 │   │   ├── recovery_validator.py
-│   │   └── repository_updater.py
+│   │   ├── repository_recovery.py
+│   │   ├── repository_updater.py
+│   │   └── strategy_recovery.py
 │   │
+│   ├── ai_config.py
+│   ├── ai_locator_advisor.py
 │   ├── allure_helper.py
+│   ├── click_helper.py
+│   ├── customLogger.py
+│   ├── data_loader.py
 │   ├── healing_dashboard.py
 │   ├── healing_logger.py
 │   ├── locator_repository.py
-│   ├── customLogger.py
-│   └── data_loader.py
+│   ├── locator_strategy.py
+│   ├── self_healing.py
+│   └── self_healing_config.py
 │
-├── testdata/
-│   ├── customer.json
-│   ├── payment.json
-│   └── config.json
+├── assets/
+├── docs/
 │
-├── requirements.txt
+├── conftest.py
 ├── pytest.ini
-├── README.md
-└── .gitignore
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
+
+Generated runtime directories such as `reports/`, `logs/`, `allure-results/`, and test-generated downloads are runtime artifacts rather than framework source components.
+
+---
+
+# Test Suite
+
+The project contains functional, hybrid, deterministic self-healing, and AI self-healing scenarios.
+
+| Test                        | Purpose                                               |
+| --------------------------- | ----------------------------------------------------- |
+| `test_ai_self_healing.py`   | Demonstrates the AI recovery layer                    |
+| `test_self_healing.py`      | Demonstrates Repository, Strategy, and Fuzzy recovery |
+| `test_hybrid_order_flow.py` | API user creation + UI order flow + API user deletion |
+| `test_order_confirm.py`     | End-to-end order confirmation flow                    |
+| `test_register.py`          | User registration                                     |
+| `test_login.py`             | User login                                            |
+| `test_delete_login.py`      | User deletion                                         |
+
+The test suite therefore separates the self-healing demonstrations from the normal functional flows.
+
+---
+
+# Hybrid API + UI Flow
+
+`test_hybrid_order_flow.py` demonstrates API and UI automation working together.
+
+The flow is:
+
+```text
+Create User through API
+        ↓
+Launch UI
+        ↓
+Complete Application Flow
+        ↓
+Delete User through API
+```
+
+This test does not demonstrate self-healing. It demonstrates integration between API and UI automation.
+
+---
+
+# Configuration
+
+Application configuration is maintained under:
+
+```text
+config/config.ini
+```
+
+Core configuration is loaded through:
+
+```text
+core/config.py
+```
+
+AI-specific configuration is maintained in:
+
+```text
+utils/ai_config.py
+```
+
+The AI configuration controls the local Ollama integration.
+
+---
+
+# PyTest Configuration
+
+The framework uses `pytest.ini` for:
+
+* Base URL
+* Test discovery
+* HTML reporting
+* Allure result generation
+* Console logging
+* File logging
+* Custom test markers
+
+Registered markers include:
+
+```text
+smoke
+regression
+api
+ui
+hybrid
+self_healing
+ai
+run
 ```
 
 ---
 
-# 📁 Folder Description
+# Installation
 
-| Folder | Purpose |
-|---------|----------|
-| **core** | Framework core components such as driver initialization, configuration, and Selenium wrapper |
-| **pages** | Page Object Model implementation for all application pages |
-| **tests** | Test cases organized by UI and API modules |
-| **repository** | Self-learning locator repository automatically updated after successful recoveries |
-| **reports** | All generated reports including Allure artifacts, healing dashboard, logs, and screenshots |
-| **utils/ai** | AI engine responsible for DOM extraction, prompt generation, Ollama communication, and locator suggestion |
-| **utils/healing** | Self-healing engine implementations including Repository, Strategy, Fuzzy, and AI recovery |
-| **testdata** | Externalized test data used by automation scripts |
-
----
-
-# 🏗 Framework Layers
-
-The framework follows a layered architecture to ensure maintainability and scalability.
-
-```
-Test Cases
-     │
-     ▼
-Page Objects
-     │
-     ▼
-Selenium Wrapper
-     │
-     ▼
-Self-Healing Engine
-     │
-     ▼
-AI Recovery (Ollama)
-     │
-     ▼
-Locator Repository
-     │
-     ▼
-Reports & Dashboard
-```
-
-Each layer has a single responsibility, making the framework easy to extend and maintain.
-
-# 🤖 AI Self-Healing Workflow
-
-One of the key capabilities of this framework is its ability to recover automatically from broken locators using a multi-layer self-healing mechanism.
-
-Instead of failing immediately when an element is not found, the framework attempts several recovery strategies before reporting a failure.
-
----
-
-## Recovery Pipeline
-
-```
-Element Not Found
-        │
-        ▼
-Repository Recovery
-        │
-        ▼
-Strategy Recovery
-        │
-        ▼
-Fuzzy Recovery
-        │
-        ▼
-AI Recovery (Ollama)
-        │
-        ▼
-Semantic Validation
-        │
-        ▼
-Repository Learning
-        │
-        ▼
-Continue Test Execution
-```
-
----
-
-## Recovery Layers
-
-### 1. Repository Recovery
-
-The framework first checks the local locator repository.
-
-If a previously healed locator exists, it is reused immediately without invoking AI.
-
-**Benefits**
-
-- Fastest recovery
-- No AI overhead
-- Continuous learning
-
----
-
-### 2. Strategy Recovery
-
-If repository recovery fails, the framework applies predefined locator transformation strategies.
-
-Examples include:
-
-- ID → Name
-- Name → CSS
-- CSS → XPath
-- XPath simplification
-
----
-
-### 3. Fuzzy Recovery
-
-If strategy recovery fails, similar DOM elements are identified using fuzzy matching techniques.
-
-The framework compares:
-
-- Tag names
-- Attributes
-- Visible text
-- Similarity score
-
----
-
-### 4. AI Recovery (Ollama)
-
-When all conventional recovery mechanisms fail, the framework invokes a locally hosted Ollama Large Language Model.
-
-The AI receives:
-
-- Broken locator
-- Current page title
-- Current URL
-- Ranked DOM candidates
-
-It then suggests the most appropriate replacement locator.
-
----
-
-# AI Recovery Pipeline
-
-```
-Broken Locator
-        │
-        ▼
-DOM Extraction
-        │
-        ▼
-Candidate Ranking
-        │
-        ▼
-Prompt Builder
-        │
-        ▼
-Ollama (Llama 3.1)
-        │
-        ▼
-Locator Suggestion
-        │
-        ▼
-Locator Validation
-        │
-        ▼
-Semantic Validation
-        │
-        ▼
-Repository Update
-        │
-        ▼
-Continue Test
-```
-
----
-
-# Candidate Ranking
-
-Instead of sending the entire page source to the LLM, the framework extracts only the most relevant DOM fragments.
-
-This reduces:
-
-- Prompt size
-- Response time
-- LLM hallucinations
-
-The ranking process considers:
-
-- Broken locator attributes
-- Tag similarity
-- Nearby DOM elements
-- Visible text relevance
-- Element hierarchy
-
-Only the highest-ranked candidates are included in the AI prompt.
-
----
-
-# Semantic Validation
-
-An AI-generated locator is never accepted blindly.
-
-Before using it, the framework verifies that the recovered element matches the intended target.
-
-Validation checks include:
-
-- Element existence
-- Element visibility
-- HTML tag consistency
-- Expected button or link text
-- Prevention of unrelated matches
-
-Only validated locators are accepted.
-
----
-
-# Automatic Repository Learning
-
-Once AI successfully recovers a locator, the framework automatically updates the local locator repository.
-
-Example:
-
-```
-Original Locator
-↓
-
-AI Recovered Locator
-↓
-
-Validation Successful
-↓
-
-locator_repository.json Updated
-```
-
-During future executions, the updated locator is retrieved directly from the repository without requiring another AI call.
-
-This creates a continuously improving automation framework.
-
----
-
-# Why Local Ollama?
-
-The framework uses a locally hosted Ollama model instead of cloud-based AI services.
-
-Advantages include:
-
-- No API costs
-- Data remains on the local machine
-- Offline execution
-- Faster response after model warm-up
-- Suitable for enterprise environments with strict security requirements
-
-# 📊 Reporting & Observability
-
-The framework provides detailed execution reports and self-healing analytics.
-
----
-
-## Allure Report
-
-The framework automatically attaches:
-
-- Test execution screenshots
-- Healing Log
-- Locator Repository
-- Healing Dashboard
-- AI Prompt
-- AI Response
-- Recovered Locator
-- Recovery Engine
-- Execution steps
-
-Example:
-
-```
-Test Started
-     │
-     ▼
-Screenshot
-     │
-     ▼
-Broken Locator
-     │
-     ▼
-AI Recovery
-     │
-     ▼
-Recovered Locator
-     │
-     ▼
-Healing Log
-     │
-     ▼
-Order Placed
-```
-
----
-
-## Healing Dashboard
-
-After every execution, the framework generates a visual dashboard.
-
-The dashboard includes:
-
-- Total healing events
-- Repository recoveries
-- Strategy recoveries
-- Fuzzy recoveries
-- AI recoveries
-- Recent healing history
-
-Generated file:
-
-```
-reports/
-    healing_dashboard.html
-```
-
----
-
-## Healing Log
-
-Every successful recovery is recorded in JSON format.
-
-Example:
-
-```json
-{
-  "timestamp": "2025-07-22 10:31:05",
-  "original": [
-    "xpath",
-    "//button[@id='submit']"
-  ],
-  "recovered": [
-    "xpath",
-    "//button[@data-qa='pay-button']"
-  ],
-  "source": "AI",
-  "confidence": 95,
-  "provider": "Ollama",
-  "duration_ms": 1240
-}
-```
-
----
-
-## Locator Repository
-
-The framework continuously learns.
-
-Recovered locators are automatically stored inside:
-
-```
-repository/
-    locator_repository.json
-```
-
-Future executions reuse these locators before invoking AI.
-
-This significantly reduces execution time and AI dependency.
-
----
-
-# ▶ Running the Framework
-
-## Install Dependencies
+## 1. Clone the repository
 
 ```bash
+git clone https://github.com/AKSenthil01/SentinelAI-Framework.git
+cd SentinelAI-Framework
+```
+
+## 2. Create a virtual environment
+
+Windows:
+
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+## 3. Install dependencies
+
+```powershell
 pip install -r requirements.txt
 ```
 
 ---
 
-## Start Ollama
+# Ollama Setup
 
-Ensure Ollama is installed and the required model is available.
+Install Ollama separately and ensure the configured model is available.
 
-Example:
+Start the Ollama service:
 
 ```bash
 ollama serve
 ```
 
-Verify the model:
+Check installed models:
 
 ```bash
 ollama list
 ```
 
+The current default configuration uses:
+
+```text
+llama3:8b
+```
+
+The Ollama service must be available when executing scenarios that require AI recovery.
+
 ---
 
-## Execute Tests
+# Running Tests
 
-Run all tests:
+## Run the complete suite
 
-```bash
+```powershell
 pytest
 ```
 
-Run AI Self-Healing test:
+## Run the AI self-healing demonstration
 
-```bash
-pytest tests/ui/test_ai_self_healing.py
+```powershell
+pytest -v tests/ui/test_ai_self_healing.py
 ```
 
-Generate HTML report:
+## Run the deterministic self-healing demonstration
 
-```bash
-pytest --html=reports/report.html
+```powershell
+pytest -v tests/ui/test_self_healing.py
 ```
 
-Generate Allure results:
+## Run the hybrid API/UI flow
 
-```bash
-pytest --alluredir=allure-results
+```powershell
+pytest -v tests/hybrid/test_hybrid_order_flow.py
 ```
 
-Generate Allure report:
+---
+
+# Reporting
+
+PyTest HTML reporting is configured in `pytest.ini`.
+
+After execution:
+
+```text
+reports/report.html
+```
+
+Healing information is generated under:
+
+```text
+reports/
+├── healing_log.json
+└── healing_dashboard.html
+```
+
+Allure results are generated under:
+
+```text
+allure-results/
+```
+
+If Allure CLI is installed, the results can be viewed with:
 
 ```bash
 allure serve allure-results
@@ -771,115 +703,122 @@ allure serve allure-results
 
 ---
 
-# ⚙ Prerequisites
+# Validation
 
-- Python 3.11+
-- Selenium
-- Chrome Browser
-- ChromeDriver
-- PyTest
-- Allure
-- Ollama
-- Llama 3.1 model
+The framework has been validated locally using the current test suite.
 
----
-# 📸 Sample Outputs
+The latest complete local suite run after the cleanup/refactor completed with:
 
-The framework automatically generates the following execution artifacts.
-
-## Allure Report
-
-- Test execution steps
-- Screenshots
-- Recovery Engine
-- AI Prompt
-- AI Response
-- Healing Log
-- Locator Repository
-- HTML Dashboard
-
----
-
-## Healing Dashboard
-
-The dashboard provides an overview of framework learning.
-
-Metrics include:
-
-- Total Healing Events
-- Repository Recoveries
-- Strategy Recoveries
-- Fuzzy Recoveries
-- AI Recoveries
-- Recent Healing History
-
----
-
-## Locator Repository
-
-The framework continuously learns successful recoveries.
-
-Example:
-
-```json
-{
-  "xpath://button[@id='submit']": {
-    "current_locator": [
-      "xpath",
-      "//button[@data-qa='pay-button']"
-    ],
-    "source": "AI",
-    "success_count": 4
-  }
-}
+```text
+8 passed
 ```
 
----
+The targeted AI self-healing test was subsequently executed independently and completed with:
 
-# 💡 Key Achievements
+```text
+1 passed
+0 warnings
+```
 
-This framework demonstrates several enterprise automation capabilities:
+The targeted execution also generated one healing event and successfully produced the healing dashboard.
 
-- AI-assisted Selenium Self-Healing
-- Local LLM integration using Ollama
-- Automatic Repository Learning
-- Layered Recovery Pipeline
-- Semantic Locator Validation
-- Enterprise Reporting
-- Modular Architecture
-- Page Object Model implementation
-- JSON Repository Management
-- Continuous Framework Learning
+These results represent local validation of the current test scenarios; they should not be interpreted as proof of production readiness across browsers, operating systems, environments, or CI systems.
 
 ---
 
-# 🚀 Future Enhancements
+# Design Approach
+
+The framework follows several practical automation design principles:
+
+* Page Object Model
+* Separation of concerns
+* Strategy-based recovery
+* Repository-based locator persistence
+* Factory-based AI provider selection
+* Layered recovery
+* Deterministic recovery before AI recovery
+* Validation of AI-generated locators
+* Centralized configuration
+* Test-data separation
+* Runtime observability
+
+The key architectural decision is that **AI is a fallback mechanism rather than the first mechanism used for every locator failure**.
+
+---
+
+# Why Local AI?
+
+Using Ollama allows the AI recovery mechanism to run through a locally hosted LLM rather than requiring a cloud AI API.
+
+For this project, this provides:
+
+* Local model execution
+* No OpenAI API dependency
+* No per-request OpenAI API cost
+* Local handling of the recovery context
+* A practical environment for experimenting with LLM-assisted test automation
+
+Actual performance and model quality depend on the selected Ollama model and local hardware.
+
+---
+
+# Current Scope and Limitations
+
+This project is a **portfolio and proof-of-concept automation framework** demonstrating AI-assisted Selenium self-healing.
+
+Current scope includes:
+
+* Selenium UI automation
+* PyTest
+* Page Object Model
+* Layered locator recovery
+* Local Ollama integration
+* Locator repository persistence
+* AI recovery demonstration
+* API + UI hybrid automation
+* HTML and Allure reporting
+* Healing observability
+
+The project does not currently claim:
+
+* Production readiness
+* Enterprise certification
+* Guaranteed AI recovery
+* Fully autonomous test maintenance
+* Cross-browser validation across all supported browsers
+* Distributed Selenium Grid execution
+* Complete CI/CD validation
+* Zero-failure operation across arbitrary applications
+
+---
+
+# Future Enhancements
 
 Potential future improvements include:
 
-- Parallel Execution using Selenium Grid
-- Docker-based Execution
-- Jenkins / GitHub Actions CI Integration
-- Multi-browser Execution
-- Visual AI Validation
-- AI Confidence Scoring
-- Repository Versioning
-- Recovery Analytics Dashboard
-- Automatic Locator Optimization
-- AI-assisted Test Generation
+* CI/CD integration
+* Selenium Grid execution
+* Multi-browser validation
+* Docker-based execution
+* Improved AI confidence evaluation
+* Repository versioning
+* Expanded recovery analytics
+* Additional semantic validation
+* AI-assisted test generation
+* Improved recovery performance measurements
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 **A K Senthil Kumar**
 
-Automation Test Engineer | Python | Selenium | PyTest | AI-powered Test Automation
+Automation Test Engineer | Python | Selenium | PyTest | AI-Assisted Test Automation
 
-This project was developed as a proof-of-concept enterprise automation framework demonstrating AI-assisted Selenium Self-Healing using a locally hosted Ollama Large Language Model.
+This project demonstrates practical integration of traditional Selenium automation, layered self-healing strategies, and locally hosted LLM-based locator recovery.
 
 ---
 
-# 📄 License
+# License
 
 This project is intended for learning, demonstration, and portfolio purposes.

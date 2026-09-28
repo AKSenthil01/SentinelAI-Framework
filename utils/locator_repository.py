@@ -81,6 +81,18 @@ class LocatorRepository:
 
             )# ---------------------------------------------------------
 
+    @classmethod
+    def clear_repository(cls):
+        """
+        Clear all persisted locator knowledge.
+
+        Used by the AI self-healing demonstration to ensure
+        Repository Recovery cannot succeed from previously
+        learned locators.
+        """
+        cls.repository = {}
+        cls.save_repository()
+
     @staticmethod
     def _key(by, value):
 

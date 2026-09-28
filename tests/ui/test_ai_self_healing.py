@@ -3,6 +3,7 @@ import json
 import os
 import allure
 import pytest
+from utils.locator_repository import LocatorRepository
 
 from pages.AccountCreatedPage import AccountCreatedPage
 from pages.AccountRegistrationPage import AccountRegistrationPage
@@ -46,8 +47,8 @@ class TestAISelfHealing:
             payment_data,
             reg_password
     ):
-
         HealingLogger.clear()
+        LocatorRepository.clear_repository()
 
         self.driver = setup
 

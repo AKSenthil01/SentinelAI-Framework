@@ -10,6 +10,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from utils.healing_dashboard import HealingDashboard
+from utils.api.api_client import ApiClient
+from utils.api.response_validator import ResponseValidator
+from utils.data_generator.data_generator import DataGenerator
 fake=Faker()
 
 @pytest.fixture
@@ -83,6 +86,26 @@ def existing_user():
     with open("test_data/user.json") as f:
         data = json.load(f)
     return data
+
+@pytest.fixture
+def created_user():
+    user = DataGenerator.create_user()
+
+    response = ApiClient.post(
+        "/createAccount",
+        data=user
+    )
+
+    ResponseValidator.validate_status(
+        response,
+        200
+    )
+
+    data = response.json()
+
+    assert data["responseCode"] == 201
+
+    yield user
 
 @pytest.fixture
 def random_email():

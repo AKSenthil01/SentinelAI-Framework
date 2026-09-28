@@ -152,7 +152,7 @@ tr:nth-child(even){{
 
 <body>
 
-<h1>Enterprise Self-Healing Dashboard</h1>
+<h1>SentinelAI Self-Healing Dashboard</h1>
 
 <div class="card">
 <div>Total Healings</div>

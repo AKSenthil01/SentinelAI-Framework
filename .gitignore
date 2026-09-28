@@ -31,3 +31,6 @@ Thumbs.db
 
 # Debug artifacts
 debug.png
+
+# Test-generated downloads
+downloads/
